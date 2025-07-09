@@ -14,50 +14,50 @@
 
 # Table of Contents
 
-- [🌐 Live Demo](#-live-demo)
-- [🚩 The Problems DeliverEase Solves](#-the-problems-deliverease-solves)
-- [🖼️ Preview](#️-preview)
-- [✨ Key Features](#-key-features)
-- [🧱 Tech Stack](#-tech-stack)
-- [🛠️ Setup Instructions](#️-setup-instructions)
-- [🧩 Project Structure](#-project-structure)
-- [📈 Future Enhancements](#-future-enhancements)
+- [ Live Demo](#-live-demo)
+- [ The Problems DeliverEase Solves](#-the-problems-deliverease-solves)
+- [ Preview](#️-preview)
+- [ Key Features](#-key-features)
+- [ Tech Stack](#-tech-stack)
+- [ Setup Instructions](#️-setup-instructions)
+- [ Project Structure](#-project-structure)
+- [ Future Enhancements](#-future-enhancements)
 
 ---
-## 🌐 Live Demo
+##  Live Demo
 
-> 🔗 **Live URL:** Coming Soon  
-> 📽️ **Demo Video:** [Watch Here](#) _(Coming Soon)_
+>  **Live URL:** Coming Soon  
+>  **Demo Video:** [Watch Here](#) _(Coming Soon)_
 
 ---
 
-## 🖼️ Preview
+##  Preview
 
 > If any uploaded image appears scaled or unclear, please click on the image to view it in full resolution for better clarity.
 
 ---
 <details>
-  <summary><strong>🏠 Home Page</strong></summary>
+  <summary><strong> Home Page</strong></summary>
 
   <table align="center" style="margin-top: 10px;">
     <tr>
       <td align="center">
         <img src="./screenshots/home-hero.png" alt="Home Hero" width="500" height="340"/><br/>
-        <strong>🎯 Hero Section</strong>
+        <strong> Hero Section</strong>
       </td>
       <td align="center">
         <img src="./screenshots/home-how-it-works.png" alt="How It Works" width="500" height="340"/><br/>
-        <strong>📚 How It Works</strong>
+        <strong> How It Works</strong>
       </td>
     </tr>
     <tr>
       <td align="center">
         <img src="./screenshots/home-features.png" alt="Features Section" width="500" height="340"/><br/>
-        <strong>⚙️ Features Overview</strong>
+        <strong> Features Overview</strong>
       </td>
       <td align="center">
         <img src="./screenshots/home-footer.png" alt="Footer" width="500" height="340"/><br/>
-        <strong>📩 Footer & Navigation</strong>
+        <strong> Footer & Navigation</strong>
       </td>
     </tr>
   </table>
@@ -66,37 +66,37 @@
 ---
 
 <details>
-  <summary><strong>📦 Place Order Flow</strong></summary>
+  <summary><strong> Place Order Flow</strong></summary>
 
   <table align="center" style="margin-top: 10px;">
     <tr>
       <td align="center">
         <img src="./screenshots/place-order.png" alt="Place Order Page" width="500" height="340"/><br/>
-        <strong>🛒 Parcel Type, Pickup, & Stops</strong>
+        <strong> Parcel Type, Pickup, & Stops</strong>
       </td>
       <td align="center">
         <img src="./screenshots/select-vehicle.png" alt="Select Vehicle" width="500" height="340"/><br/>
-        <strong>🚛 Vehicle Selection</strong>
+        <strong> Vehicle Selection</strong>
       </td>
     </tr>
     <tr>
       <td align="center">
         <img src="./screenshots/route-summary.png" alt="Route Summary" width="500" height="340"/><br/>
-        <strong>🧭 Route & Cost Calculation</strong>
+        <strong> Route & Cost Calculation</strong>
       </td>
       <td align="center">
         <img src="./screenshots/price-summary.png" alt="Price Summary" width="500" height="340"/><br/>
-        <strong>➕ Price Summary</strong>
+        <strong> Price Summary</strong>
       </td>
     </tr>
     <tr>
       <td align="center">
         <img src="./screenshots/payment.png" alt="Payment Options" width="500" height="340"/><br/>
-        <strong>💳 Payment & Receipt</strong>
+        <strong> Payment & Receipt</strong>
       </td>
       <td align="center">
         <img src="./screenshots/reciept.png" alt="Booking Receipt" width="500" height="340"/><br/>
-        <strong>📍 Booking Receipt</strong>
+        <strong> Booking Receipt</strong>
       </td>
     </tr>
   </table>
@@ -105,17 +105,17 @@
 ---
 
 <details>
-  <summary><strong>🛰️ Track Order</strong></summary>
+  <summary><strong> Track Order</strong></summary>
 
   <table align="center" style="margin-top: 10px;">
     <tr>
       <td align="center">
         <img src="./screenshots/order-card.png" alt="Order Cards" width="500" height="340"/><br/>
-        <strong>📦 View & Filter Orders</strong>
+        <strong> View & Filter Orders</strong>
       </td>
       <td align="center">
         <img src="./screenshots/track-order.png" alt="Tracking Map" width="500" height="340"/><br/>
-        <strong>📍 Animated Route Tracking</strong>
+        <strong> Animated Route Tracking</strong>
       </td>
     </tr>
   </table>
@@ -124,17 +124,17 @@
 ---
 
 <details>
-  <summary><strong>📋 Feedback & Info Pages</strong></summary>
+  <summary><strong> Feedback & Info Pages</strong></summary>
 
   <table align="center" style="margin-top: 10px;">
     <tr>
       <td align="center">
         <img src="./screenshots/feedback.png" alt="Feedback Page" width="500" height="340"/><br/>
-        <strong>✍️ Submit Feedback</strong>
+        <strong> Submit Feedback</strong>
       </td>
       <td align="center">
         <img src="./screenshots/terms.png" alt="Terms & Conditions" width="500" height="340"/><br/>
-        <strong>📜 Terms & Conditions</strong>
+        <strong> Terms & Conditions</strong>
       </td>
     </tr>
   </table>
@@ -142,39 +142,39 @@
 
 ---
 
-## 🚩 The Problems DeliverEase Solves
+##  The Problems DeliverEase Solves
 
 DeliverEase is crafted to address multiple real-world inefficiencies and friction points in the local logistics ecosystem. Here's how it tackles common challenges:
 
-### 🚧 Fragmented Order Systems
+###  Fragmented Order Systems
 **Problem:** Most delivery services lack a unified interface for managing multi-stop deliveries, vehicle selection, and payment integration.  
 **Solution:** DeliverEase offers an end-to-end parcel flow — from parcel type selection to payment — all in one seamless UI.
 
-### 📍 Inaccurate Location Handling
+###  Inaccurate Location Handling
 **Problem:** Manually entering pickup or stop addresses leads to errors and inefficiencies.  
 **Solution:** Uses the Geolocation API to auto-detect current pickup location and simplify address input.
 
-### 📦 Parcel-Type Neglect
+###  Parcel-Type Neglect
 **Problem:** Perishable or fragile items often get mishandled due to lack of delivery context.  
 **Solution:** Users explicitly label parcel types (perishable, fragile, etc.), ensuring appropriate handling and optimized route/vehicle selection.
 
-### 🛣️ Inefficient Route Planning
+###  Inefficient Route Planning
 **Problem:** Manual route planning doesn’t account for delivery stop sequencing or shortest paths.  
 **Solution:** Dynamically calculates the shortest delivery route using delivery points and assigns the best vehicle type accordingly.
 
-### 🔄 Lack of Real-Time Transparency
+###  Lack of Real-Time Transparency
 **Problem:** Users can’t visualize where their order is or how it’s progressing.  
 **Solution:** Offers animated tracking maps, showing vehicle movement and delivery path with detailed step-by-step history.
 
-### 💸 Payment Hassles
+###  Payment Hassles
 **Problem:** Many systems don’t support flexible or multiple payment options.  
 **Solution:** Accepts Card, UPI, and Cash, with instant receipt generation and print option.
 
 ---
 
-## ✨ Key Features
+##  Key Features
 
-### 📦 Order Placement Flow
+###  Order Placement Flow
 
 - Select **order type**: _Perishable_, _Fragile_, or _Normal_
 - Set **delivery priority**: _Standard_, _Express_, or _Urgent_
@@ -182,7 +182,7 @@ DeliverEase is crafted to address multiple real-world inefficiencies and frictio
 - Add **multiple delivery stops** dynamically
 - Smart UI flows to keep order creation intuitive
 
-### 🚗 Vehicle Selection & Smart Pricing
+###  Vehicle Selection & Smart Pricing
 
 - Choose vehicle based on:
   - Parcel **size**, **weight**, and **cost**
@@ -191,13 +191,13 @@ DeliverEase is crafted to address multiple real-world inefficiencies and frictio
   - Distance, weight, parcel type, and vehicle
 - Accept route and **proceed to payment**
 
-### 💳 Payment & Receipt
+###  Payment & Receipt
 
 - Supports **Card**, **UPI**, and **Cash on Delivery**
 - Generates a **digital receipt** with order details
 - Option to **print receipt** directly from browser
 
-### 🛰️ Real-Time Order Tracking
+###  Real-Time Order Tracking
 
 - View and **filter orders** by status: _Pending_, _In Transit_, _Delivered_
 - Each order card shows essential order details
@@ -206,7 +206,7 @@ DeliverEase is crafted to address multiple real-world inefficiencies and frictio
   - **Cancel** orders
   - **Pay pending** orders
 
-### 🗺️ Interactive Tracking Map
+###  Interactive Tracking Map
 
 - On tracking:
   - **Modal opens** with animated vehicle movement on route
@@ -214,15 +214,15 @@ DeliverEase is crafted to address multiple real-world inefficiencies and frictio
   - All **address points** labeled clearly
   - Below map: Timeline of route steps & delivery history
 
-### 📋 Additional Pages
+###  Additional Pages
 
-- 📝 **Feedback Page** – share delivery experience
-- 📜 **Terms & Conditions**
-- 📞 **Contact Us** – submit queries or support requests
+-  **Feedback Page** – share delivery experience
+-  **Terms & Conditions**
+-  **Contact Us** – submit queries or support requests
 
 ---
 
-## 🧱 Tech Stack
+##  Tech Stack
 
 | Tech            | Purpose                             |
 | --------------- | ----------------------------------- |
@@ -235,7 +235,7 @@ DeliverEase is crafted to address multiple real-world inefficiencies and frictio
 
 ---
 
-## 🛠️ Setup Instructions
+##  Setup Instructions
 
 ```bash
 git clone https://github.com/Anish-Tripathi/DeliverEase.git
@@ -244,11 +244,11 @@ cd DeliverEase
 # Just open assets/html/index.html in your browser
 ```
 
-✅ No installations needed. Just clone and run.
+ No installations needed. Just clone and run.
 
 ---
 
-## 🧩 Project Structure
+##  Project Structure
 
 ```
 DeliverEase/
@@ -268,7 +268,7 @@ DeliverEase/
 
 ---
 
-## 📈 Future Enhancements
+##  Future Enhancements
 
 - Integrate backend with Node.js or Firebase
 - Real-time GPS tracking via mobile API
