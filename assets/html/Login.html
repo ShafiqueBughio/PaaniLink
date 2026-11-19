@@ -1,163 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
-    <link rel="stylesheet" href="../css/Login.css">
-    <link rel="shortcut icon" href="../../logo.png" type="image/webp">
-    <link rel="stylesheet" href="../css/Navbar.css">
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login – PaaniLink</title>
+  <link rel="shortcut icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/Login.css">
+  <link rel="stylesheet" href="../css/Navbar.css">
+  <style>
+    .auth-wrapper { min-height: 100vh; display:flex; align-items:center; justify-content:center; background: linear-gradient(135deg, #e3f2fd 0%, #fff8e1 100%); padding: 20px; }
+    .auth-card { background:#fff; border-radius:16px; box-shadow:0 8px 32px rgba(0,0,0,0.12); width:100%; max-width:460px; padding:40px; }
+    .auth-card h2 { text-align:center; color:#1a3a5c; margin-bottom:8px; font-size:2.4rem; }
+    .auth-card .subtitle { text-align:center; color:#666; font-size:1.4rem; margin-bottom:30px; }
+    .form-group { margin-bottom:20px; }
+    .form-group label { display:block; font-weight:600; color:#333; margin-bottom:6px; font-size:1.4rem; }
+    .form-group input, .form-group select { width:100%; padding:12px 16px; border:2px solid #e0e0e0; border-radius:8px; font-size:1.5rem; transition:border-color 0.3s; }
+    .form-group input:focus, .form-group select:focus { border-color:#FFA500; outline:none; box-shadow:0 0 0 3px rgba(255,165,0,0.15); }
+    .btn-submit { width:100%; padding:14px; background:#FFA500; color:#fff; border:none; border-radius:8px; font-size:1.6rem; font-weight:700; cursor:pointer; letter-spacing:0.5px; transition:background 0.3s; }
+    .btn-submit:hover { background:#e08800; }
+    .btn-submit:disabled { background:#ccc; cursor:not-allowed; }
+    .auth-footer { text-align:center; margin-top:20px; font-size:1.4rem; color:#555; }
+    .auth-footer a { color:#FFA500; font-weight:600; text-decoration:none; }
+    .auth-footer a:hover { text-decoration:underline; }
+    .error-msg { background:#fee; color:#c0392b; border:1px solid #f5c6cb; padding:10px 14px; border-radius:8px; margin-bottom:16px; font-size:1.4rem; display:none; }
+    .demo-creds { background:#f0f9ff; border:1px solid #bee3f8; border-radius:10px; padding:16px; margin-bottom:20px; font-size:1.3rem; }
+    .demo-creds h4 { color:#1a3a5c; margin-bottom:10px; font-size:1.4rem; }
+    .demo-creds table { width:100%; border-collapse:collapse; }
+    .demo-creds td { padding:4px 8px; color:#444; }
+    .demo-creds td:first-child { font-weight:600; color:#1a3a5c; white-space:nowrap; }
+    .demo-creds tr:hover td { background:#e8f4fd; cursor:pointer; }
+    .logo-wrap { text-align:center; margin-bottom:20px; }
+    .logo-wrap img { height:48px; border-radius:10px; }
+    .logo-wrap span { display:block; font-size:2.2rem; font-weight:800; color:#1a3a5c; margin-top:8px; }
+  </style>
 </head>
 <body>
-    <header class="header" data-header>
-        <div class="container">
-          <h1>
-            <a href="Index.html" class="logo">
-              <img src="../../logo.png" alt="DeliverEase Logo" class="logo-img">
-              <span id="logo-name">DeliverEase</span>
-            </a>
-          </h1>
-    
-        
-          <div class="overlay" data-nav-toggler data-overlay></div>
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="logo-wrap">
+        <img src="../../logo.png" alt="PaaniLink Logo">
+        <span>PaaniLink</span>
+      </div>
+      <h2>Welcome Back</h2>
+      <p class="subtitle">Sign in to your account</p>
+
+      <div class="demo-creds">
+        <h4>🔑 Demo Credentials (click to fill)</h4>
+        <table>
+          <tr onclick="fillCreds('admin@paanilink.com','admin123')">   <td>Admin</td>       <td>admin@paanilink.com</td>    <td>admin123</td>   </tr>
+          <tr onclick="fillCreds('zeeshan@paanilink.com','officer123')"><td>Zone Officer</td><td>zeeshan@paanilink.com</td>  <td>officer123</td> </tr>
+          <tr onclick="fillCreds('tariq@paanilink.com','pass123')">     <td>HydrantOp</td>  <td>tariq@paanilink.com</td>    <td>pass123</td>    </tr>
+          <tr onclick="fillCreds('imran@paanilink.com','pass123')">     <td>Driver</td>     <td>imran@paanilink.com</td>    <td>pass123</td>    </tr>
+          <tr onclick="fillCreds('ayesha@example.com','pass123')">      <td>Customer</td>   <td>ayesha@example.com</td>     <td>pass123</td>    </tr>
+        </table>
+      </div>
+
+      <div class="error-msg" id="errorMsg"></div>
+
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="email">Email / Phone</label>
+          <input type="text" id="email" placeholder="Enter email or phone" required autocomplete="username">
         </div>
-      </header>
-    <div class="login-container">
-        <h2>Login</h2>
-        <form id="loginForm">
-            <div>
-                <label for="username" class="label">Username:</label>
-                <input type="text" id="username" required>
-            </div>
-            <div>
-                <label for="password" class="label">Password:</label>
-                <input type="password" id="password" required>
-            </div>
-            <button type="submit">Login</button>
-        </form>
-        <p>Don't have an account? <a href="Signup.html">Sign up here</a></p>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter password" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn-submit" id="loginBtn">Login</button>
+      </form>
+
+      <div class="auth-footer">
+        Don't have an account? <a href="Signup.html">Register here</a>
+      </div>
     </div>
-    <footer class="footer">
-        <div class="container" id="footer">
-          <div class="footer-top section">
-            <div class="footer-brand">
-              <a href="index.html" class="logo">DeliverEase</a>
-              <p class="footer-text">
-                At DeliverEase, we believe in going beyond logistics to revolutionize how the world connects and conducts business. 
-                Our mission is to transform the logistics landscape through innovation, dedication, and cutting-edge technology.
-              </p>
-      
-              <ul class="social-list">
-                <li>
-                  <a href="#" class="social-link">
-                    <ion-icon name="logo-facebook"></ion-icon>
-                  </a>
-                </li>
-      
-                <li>
-                  <a href="#" class="social-link">
-                    <ion-icon name="logo-twitter"></ion-icon>
-                  </a>
-                </li>
-      
-                <li>
-                  <a href="https://www.instagram.com" target="_blank" class="social-link">
-                    <ion-icon name="logo-instagram"></ion-icon>
-                  </a>
-                </li>
-              </ul>
-            </div>
-      
-            <ul class="footer-list">
-              <li>
-                <p class="footer-list-title">Quick Links</p>
-              </li>
-      
-              <li>
-                <a href="Index.html#about" class="footer-link">About Us</a>
-              </li>
-      
-              <li>
-                <a href="Index.html#service" class="footer-link">Services</a>
-              </li>
-      
-              <li>
-                <a href="OrderPage.html" target="_blank" class="footer-link">Place Order</a>
-              </li>
-      
-              <li>
-                <a href="TrackOrder.html" class="footer-link">Track Order</a>
-              </li>
-      
-              <li>
-                <a href="Terms.html" target="_blank" class="footer-link">Privacy Policy</a>
-              </li>
-            </ul>
-      
-            <ul class="footer-list" id="service-footer">
-              <li>
-                <p class="footer-list-title">Services</p>
-              </li>
-      
-              <li>
-                <a href="Index.html#service" class="footer-link">Multi-Stop Delivery</a>
-              </li>
-              
-              <li>
-                <a href="Index.html#service" class="footer-link">Road Freight</a>
-              </li>
-      
-              <li>
-                <a href="Index.html#service" class="footer-link">Tracking</a>
-              </li>
-      
-              <li>
-                <a href="Index.html#service" class="footer-link">Scheduling</a>
-              </li>
-      
-              <li>
-                <a href="Index.html#service" class="footer-link">Routing</a>
-              </li>
-            </ul>
-      
-            <ul class="footer-list">
-              <li>
-                <p class="footer-list-title">Contact Us</p>
-              </li>
-      
-              <li>
-                <a href="tel:+919867469877" class="footer-link">Phone: +919867469877</a>
-              </li>
-      
-              <li>
-                <a href="https://www.google.co.in/maps/place/Balaji+Annex/" target="_blank" class="footer-link">
-                  Office: B/303, Balaji Annexe Mira Road, Mumbai, Thane:401107
-                </a>
-              </li>
-      
-              <li>
-                <a href="Feedback.html" target="_blank" class="footer-link">Feedback</a>
-              </li>
-      
-              <li>
-                <a href="Terms.html" target="_blank" class="footer-link">Terms & Condition</a>
-              </li>
-            </ul>
-          </div>
-      
-          <div class="footer-bottom">
-            <p class="copyright">
-              &copy; 2024 DeliverEase. All Rights Reserved by <a href="#" class="copyright-link">Anish Tripathi</a>
-            </p>
-          </div>
-        </div>
-      </footer>
+  </div>
 
+  <script src="../js/mockApi.js"></script>
+  <script>
+    function fillCreds(email, pass) {
+      document.getElementById('email').value = email;
+      document.getElementById('password').value = pass;
+    }
 
-    <script src="../js/Login.js"></script>
-    <script src="../js/OrderPage.js"></script>
+    function showError(msg) {
+      const el = document.getElementById('errorMsg');
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
+
+    // Redirect if already logged in
+    mockApi.auth.getCurrentUser().then(res => {
+      if (res.success) redirectByRole(res.data.role);
+    });
+
+    function redirectByRole(role) {
+      const map = { admin:'Dashboard.html', zone_officer:'Dashboard.html', hydrant_operator:'Dashboard.html', driver:'DriverTrips.html', customer:'MyBookings.html' };
+      location.href = map[role] || 'Index.html';
+    }
+
+    document.getElementById('loginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('loginBtn');
+      btn.disabled = true;
+      btn.textContent = 'Signing in…';
+      document.getElementById('errorMsg').style.display = 'none';
+
+      const email    = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      const res = await mockApi.auth.login(email, password);
+      if (res.success) {
+        redirectByRole(res.data.role);
+      } else {
+        showError(res.error);
+        btn.disabled = false;
+        btn.textContent = 'Login';
+      }
+    });
+  </script>
 </body>
 </html>

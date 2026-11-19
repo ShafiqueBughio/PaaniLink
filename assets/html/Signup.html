@@ -1,168 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="../css/Login.css">
-    <link rel="shortcut icon" href="../logo.png" type="image/webp">
-    <link rel="stylesheet" href="../css/Navbar.css">
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register – PaaniLink</title>
+  <link rel="shortcut icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/Login.css">
+  <link rel="stylesheet" href="../css/Navbar.css">
+  <style>
+    .auth-wrapper { min-height:100vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#e3f2fd 0%,#fff8e1 100%); padding:20px; }
+    .auth-card { background:#fff; border-radius:16px; box-shadow:0 8px 32px rgba(0,0,0,0.12); width:100%; max-width:520px; padding:40px; }
+    .auth-card h2 { text-align:center; color:#1a3a5c; margin-bottom:8px; font-size:2.4rem; }
+    .auth-card .subtitle { text-align:center; color:#666; font-size:1.4rem; margin-bottom:30px; }
+    .form-group { margin-bottom:18px; }
+    .form-group label { display:block; font-weight:600; color:#333; margin-bottom:6px; font-size:1.4rem; }
+    .form-group input, .form-group select { width:100%; padding:12px 16px; border:2px solid #e0e0e0; border-radius:8px; font-size:1.5rem; transition:border-color 0.3s; }
+    .form-group input:focus, .form-group select:focus { border-color:#FFA500; outline:none; box-shadow:0 0 0 3px rgba(255,165,0,0.15); }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .btn-submit { width:100%; padding:14px; background:#FFA500; color:#fff; border:none; border-radius:8px; font-size:1.6rem; font-weight:700; cursor:pointer; transition:background 0.3s; margin-top:8px; }
+    .btn-submit:hover { background:#e08800; }
+    .btn-submit:disabled { background:#ccc; cursor:not-allowed; }
+    .auth-footer { text-align:center; margin-top:20px; font-size:1.4rem; color:#555; }
+    .auth-footer a { color:#FFA500; font-weight:600; text-decoration:none; }
+    .auth-footer a:hover { text-decoration:underline; }
+    .error-msg { background:#fee; color:#c0392b; border:1px solid #f5c6cb; padding:10px 14px; border-radius:8px; margin-bottom:16px; font-size:1.4rem; display:none; }
+    .success-msg { background:#d4edda; color:#155724; border:1px solid #c3e6cb; padding:10px 14px; border-radius:8px; margin-bottom:16px; font-size:1.4rem; display:none; }
+    .logo-wrap { text-align:center; margin-bottom:20px; }
+    .logo-wrap img { height:48px; border-radius:10px; }
+    .logo-wrap span { display:block; font-size:2.2rem; font-weight:800; color:#1a3a5c; margin-top:8px; }
+    .input-hint { font-size:1.2rem; color:#888; margin-top:4px; }
+    @media(max-width:500px) { .form-row { grid-template-columns:1fr; } }
+  </style>
 </head>
 <body>
-    <header class="header" data-header>
-        <div class="container">
-          <h1>
-            <a href="Index.html" class="logo">
-              <img src="../../logo.png" alt="DeliverEase Logo" class="logo-img">
-              <span id="logo-name">DeliverEase</span>
-            </a>
-          </h1>
-    
-        
-          <div class="overlay" data-nav-toggler data-overlay></div>
+  <div class="auth-wrapper">
+    <div class="auth-card">
+      <div class="logo-wrap">
+        <img src="../../logo.png" alt="PaaniLink Logo">
+        <span>PaaniLink</span>
+      </div>
+      <h2>Create Account</h2>
+      <p class="subtitle">Register as a Customer</p>
+
+      <div class="error-msg"   id="errorMsg"></div>
+      <div class="success-msg" id="successMsg"></div>
+
+      <form id="signupForm" novalidate>
+        <div class="form-group">
+          <label for="name">Full Name <span style="color:red">*</span></label>
+          <input type="text" id="name" placeholder="e.g. Ayesha Siddiqui" required>
         </div>
-      </header>
-    <div class="login-container">
-        <h2>Sign Up</h2>
-        <form id="signupForm">
-            <div>
-                <label for="newUsername">Username:</label>
-                <input type="text" id="newUsername" required>
-            </div>
-            <div>
-                <label for="newEmail">Email:</label>
-                <input type="email" id="newEmail" required>
-            </div>
-            
-            <div>
-                <label for="newPassword">Password:</label>
-                <input type="password" id="newPassword" required>
-            </div>
-            <div>
-                <label for="confirmPassword">Confirm Password:</label>
-                <input type="password" id="confirmPassword" required>
-            </div>
-            <button type="submit">Sign Up</button>
-        </form>
-        <p>Already have an account? <a href="./Login.html">Login here</a></p>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="cnic">CNIC <span style="color:red">*</span></label>
+            <input type="text" id="cnic" placeholder="12345-1234567-1" required maxlength="15">
+            <p class="input-hint">Format: 12345-1234567-1</p>
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone <span style="color:red">*</span></label>
+            <input type="tel" id="phone" placeholder="0300-0000000" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address <span style="color:red">*</span></label>
+          <input type="email" id="email" placeholder="you@example.com" required autocomplete="email">
+        </div>
+
+        <div class="form-group">
+          <label for="address">Delivery Address <span style="color:red">*</span></label>
+          <input type="text" id="address" placeholder="House no, Street, Area, City" required>
+        </div>
+
+        <div class="form-group">
+          <label for="zone">Your Zone <span style="color:red">*</span></label>
+          <select id="zone" required>
+            <option value="">-- Select Zone --</option>
+            <option value="zone1">North Zone</option>
+            <option value="zone2">South Zone</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="password">Password <span style="color:red">*</span></label>
+            <input type="password" id="password" placeholder="Min 6 characters" required minlength="6" autocomplete="new-password">
+          </div>
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password <span style="color:red">*</span></label>
+            <input type="password" id="confirmPassword" placeholder="Repeat password" required autocomplete="new-password">
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit" id="signupBtn">Create Account</button>
+      </form>
+
+      <div class="auth-footer">
+        Already have an account? <a href="Login.html">Login here</a>
+      </div>
     </div>
-    <footer class="footer">
-        <div class="container" id="footer">
-          <div class="footer-top section">
-            <div class="footer-brand">
-              <a href="index.html" class="logo">DeliverEase</a>
-              <p class="footer-text">
-                At DeliverEase, we believe in going beyond logistics to revolutionize how the world connects and conducts business. 
-                Our mission is to transform the logistics landscape through innovation, dedication, and cutting-edge technology.
-              </p>
-    
-              <ul class="social-list">
-                <li>
-                  <a href="#" class="social-link">
-                    <ion-icon name="logo-facebook"></ion-icon>
-                  </a>
-                </li>
-    
-                <li>
-                  <a href="#" class="social-link">
-                    <ion-icon name="logo-twitter"></ion-icon>
-                  </a>
-                </li>
-    
-                <li>
-                  <a href="https://www.instagram.com" target="_blank" class="social-link">
-                    <ion-icon name="logo-instagram"></ion-icon>
-                  </a>
-                </li>
-              </ul>
-            </div>
-    
-            <ul class="footer-list">
-              <li>
-                <p class="footer-list-title">Quick Links</p>
-              </li>
-    
-              <li>
-                <a href="Index.html#about" class="footer-link">About Us</a>
-              </li>
-    
-              <li>
-                <a href="Index.html#service" class="footer-link">Services</a>
-              </li>
-    
-              <li>
-                <a href="OrderPage.html" target="_blank" class="footer-link">Place Order</a>
-              </li>
-    
-              <li>
-                <a href="TrackOrder.html" class="footer-link">Track Your Shipment</a>
-              </li>
-    
-              <li>
-                <a href="Terms.html" target="_blank" class="footer-link">Privacy Policy</a>
-              </li>
-            </ul>
-    
-            <ul class="footer-list" id="service-footer">
-              <li>
-                <p class="footer-list-title">Services</p>
-              </li>
-    
-              <li>
-                <a href="Index.html#service" class="footer-link">Multi-Stop Delivery</a>
-              </li>
-              
-              <li>
-                <a href="Index.html#service" class="footer-link">Road Freight</a>
-              </li>
-    
-              <li>
-                <a href="Index.html#service" class="footer-link">Tracking</a>
-              </li>
-    
-              <li>
-                <a href="Index.html#service" class="footer-link">Scheduling</a>
-              </li>
-    
-              <li>
-                <a href="Index.html#service" class="footer-link">Routing</a>
-              </li>
-            </ul>
-    
-            <ul class="footer-list">
-              <li>
-                <p class="footer-list-title">Contact Us</p>
-              </li>
-    
-              <li>
-                <a href="tel:+919867469877" class="footer-link">Phone: +919867469877</a>
-              </li>
-    
-              <li>
-                <a href="https://www.google.co.in/maps/place/Balaji+Annex/" target="_blank" class="footer-link">
-                  Office: B/303, Balaji Annexe Mira Road, Mumbai, Thane:401107
-                </a>
-              </li>
-    
-              <li>
-                <a href="Feedback.html" target="_blank" class="footer-link">Feedback</a>
-              </li>
-    
-              <li>
-                <a href="Terms.html" target="_blank" class="footer-link">Terms & Condition</a>
-              </li>
-            </ul>
-          </div>
-    
-          <div class="footer-bottom">
-            <p class="copyright">
-              &copy; 2024 DeliverEase. All Rights Reserved by <a href="#" class="copyright-link">Anish Tripathi</a>
-            </p>
-          </div>
-        </div>
-      </footer>
-    <script src="../js/Login.js"></script>
+  </div>
+
+  <script src="../js/mockApi.js"></script>
+  <script>
+    // Auto-format CNIC
+    document.getElementById('cnic').addEventListener('input', (e) => {
+      let v = e.target.value.replace(/\D/g, '');
+      if (v.length > 5)  v = v.slice(0,5)  + '-' + v.slice(5);
+      if (v.length > 13) v = v.slice(0,13) + '-' + v.slice(13);
+      e.target.value = v;
+    });
+
+    function showError(msg)   { const el = document.getElementById('errorMsg');   el.textContent = msg; el.style.display = 'block'; document.getElementById('successMsg').style.display='none'; }
+    function showSuccess(msg) { const el = document.getElementById('successMsg'); el.textContent = msg; el.style.display = 'block'; document.getElementById('errorMsg').style.display='none'; }
+
+    document.getElementById('signupForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('signupBtn');
+
+      const name     = document.getElementById('name').value.trim();
+      const cnic     = document.getElementById('cnic').value.trim();
+      const phone    = document.getElementById('phone').value.trim();
+      const email    = document.getElementById('email').value.trim();
+      const address  = document.getElementById('address').value.trim();
+      const zone     = document.getElementById('zone').value;
+      const password = document.getElementById('password').value;
+      const confirm  = document.getElementById('confirmPassword').value;
+
+      if (!name || !cnic || !phone || !email || !address || !zone || !password) {
+        return showError('Please fill all required fields.');
+      }
+      if (!/^\d{5}-\d{7}-\d$/.test(cnic)) {
+        return showError('Invalid CNIC format. Use: 12345-1234567-1');
+      }
+      if (password.length < 6) {
+        return showError('Password must be at least 6 characters.');
+      }
+      if (password !== confirm) {
+        return showError('Passwords do not match.');
+      }
+
+      btn.disabled = true;
+      btn.textContent = 'Creating account…';
+      document.getElementById('errorMsg').style.display = 'none';
+
+      const res = await mockApi.auth.register({ name, cnic, phone, email, address, zone, password });
+      if (res.success) {
+        showSuccess('Account created! Redirecting…');
+        setTimeout(() => { location.href = 'MyBookings.html'; }, 1200);
+      } else {
+        showError(res.error);
+        btn.disabled = false;
+        btn.textContent = 'Create Account';
+      }
+    });
+  </script>
 </body>
 </html>

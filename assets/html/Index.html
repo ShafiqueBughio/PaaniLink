@@ -1,640 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DeliverEase -  Simplifying logistics</title>
-
-  <link rel="shortcut icon" href="../../logo.png" type="image/webp">
-
-
+  <title>PaaniLink – Water Tanker Booking & Dispatch</title>
+  <link rel="shortcut icon" href="../../favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="../css/Style.css">
-
+  <link rel="stylesheet" href="../css/Navbar.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Rubik:wght@400;500;600;700&display=swap"
-    rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;600;700&family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    .hero { background-image: url('../images/hero-banner.jpg'); }
+    .role-badge { display:inline-block; background:var(--dark-orange); color:#fff; font-size:1.1rem; padding:4px 12px; border-radius:20px; margin-left:8px; }
+    .user-nav-info { color:#fff; font-size:1.3rem; display:flex; align-items:center; gap:8px; }
+    #navBookBtn { background:var(--dark-orange); color:#fff; border:none; padding:8px 18px; border-radius:6px; cursor:pointer; font-size:1.4rem; font-weight:600; }
+    #navBookBtn:hover { background:#e08800; }
+    .hero-actions { display:flex; gap:15px; flex-wrap:wrap; justify-content:center; margin-top:20px; }
+    .btn-primary { background:var(--dark-orange); color:#fff; padding:12px 28px; border:none; border-radius:6px; font-size:1.6rem; font-weight:600; cursor:pointer; text-decoration:none; display:inline-block; }
+    .btn-primary:hover { background:#e08800; }
+    .stats-bar { background:var(--prussian-blue); color:#fff; display:flex; justify-content:center; gap:60px; padding:30px 20px; flex-wrap:wrap; }
+    .stat-item { text-align:center; }
+    .stat-num { font-size:3.5rem; font-weight:700; color:var(--dark-orange); }
+    .stat-label { font-size:1.3rem; opacity:0.85; }
+    .how-steps { display:grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap:30px; margin-top:40px; }
+    .how-step { text-align:center; padding:30px 20px; background:var(--white); border:2px solid var(--alice-blue); border-radius:12px; }
+    .how-step .step-icon { font-size:4rem; margin-bottom:15px; }
+    .how-step .step-num { width:40px; height:40px; border-radius:50%; background:var(--dark-orange); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:1.6rem; margin:0 auto 15px; }
+    .how-step h3 { font-size:1.6rem; margin-bottom:10px; color:var(--prussian-blue); }
+    .how-step p { font-size:1.3rem; color:#666; }
+    .tanker-types { display:grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap:25px; margin-top:40px; }
+    .tanker-card { background:#fff; border-radius:12px; padding:25px; text-align:center; box-shadow:0 4px 15px rgba(0,0,0,0.08); border-top:4px solid var(--dark-orange); }
+    .tanker-card .tank-icon { font-size:3.5rem; margin-bottom:12px; }
+    .tanker-card h3 { font-size:1.8rem; color:var(--prussian-blue); margin-bottom:8px; }
+    .tanker-card .price-tag { font-size:1.4rem; color:var(--dark-orange); font-weight:600; }
+    .tanker-card p { font-size:1.3rem; color:#666; margin-top:8px; }
+  </style>
 </head>
-
 <body id="top">
-
 
   <header class="header" data-header>
     <div class="container">
-
       <h1>
-        <a href="#" class="logo">
-          <img src="../../logo.png" alt="DeliverEase Logo" style="vertical-align: middle; height: 40px;border-radius: 10px">
-          <span id="logo-name">DeliverEase</span>
+        <a href="Index.html" class="logo">
+          <img src="../../logo.png" alt="PaaniLink Logo" style="height:40px;border-radius:8px;vertical-align:middle;">
+          <span id="logo-name">PaaniLink</span>
         </a>
       </h1>
-      
 
       <nav class="navbar" data-navbar>
-
         <div class="navbar-top">
-          <a href="#" class="logo">DeliverEase</a>
-
-          <button class="nav-close-btn" aria-label="Clsoe menu" data-nav-toggler>
+          <a href="Index.html" class="logo">PaaniLink</a>
+          <button class="nav-close-btn" data-nav-toggler aria-label="Close menu">
             <ion-icon name="close-outline"></ion-icon>
           </button>
         </div>
-
         <ul class="navbar-list">
-
-          <li class="navbar-item">
-            <a href="#home" class="navbar-link" data-nav-link>
-              <span>Home</span>
-
-              <ion-icon name="chevron-forward"></ion-icon>
-            </a>
-          </li>
-
-          <li class="navbar-item">
-            <a href="#about" class="navbar-link" data-nav-link>
-              <span>About Us</span>
-
-              <ion-icon name="chevron-forward"></ion-icon>
-            </a>
-          </li>
-
-          <li class="navbar-item">
-            <a href="#service" class="navbar-link" data-nav-link>
-              <span>Services</span>
-
-              <ion-icon name="chevron-forward"></ion-icon>
-            </a>
-          </li>
-
-          <li class="navbar-item">
-            <a href="OrderPage.html" target="_blank" class="navbar-link" data-nav-link>
-              <span>Place Order</span>
-
-              <ion-icon name="chevron-forward"></ion-icon>
-            </a>
-          </li>
-
-          <li class="navbar-item">
-            <a href="TrackOrder.html" target="_blank" class="navbar-link" data-nav-link>
-              <span>Track Order</span>
-
-              <ion-icon name="chevron-forward"></ion-icon>
-            </a>
-          </li>
-
-          <li class="navbar-item">
-            <a href="#footer" class="navbar-link" data-nav-link>
-              <span>Contact Us</span>
-
-              <ion-icon name="chevron-forward"></ion-icon>
-            </a>
-          </li>
-
-          <li class="navbar-item  ">
-            <a href="Login.html"  class="navbar-link" data-nav-link">
-                <span>Log out</span>
-                <ion-icon name="chevron-forward"></ion-icon>
-            </a>
-        </li>
-        
-
+          <li class="navbar-item"><a href="#home"    class="navbar-link" data-nav-link><span>Home</span><ion-icon name="chevron-forward"></ion-icon></a></li>
+          <li class="navbar-item"><a href="#how"     class="navbar-link" data-nav-link><span>How It Works</span><ion-icon name="chevron-forward"></ion-icon></a></li>
+          <li class="navbar-item"><a href="#tankers" class="navbar-link" data-nav-link><span>Tanker Types</span><ion-icon name="chevron-forward"></ion-icon></a></li>
+          <li class="navbar-item"><a href="#service" class="navbar-link" data-nav-link><span>Services</span><ion-icon name="chevron-forward"></ion-icon></a></li>
+          <li class="navbar-item"><a href="#footer"  class="navbar-link" data-nav-link><span>Contact</span><ion-icon name="chevron-forward"></ion-icon></a></li>
+          <li class="navbar-item" id="navDashLi" style="display:none"><a href="Dashboard.html" class="navbar-link" data-nav-link><span>Dashboard</span><ion-icon name="chevron-forward"></ion-icon></a></li>
+          <li class="navbar-item" id="navLoginLi"><a href="Login.html"    class="navbar-link"><span>Login</span><ion-icon name="chevron-forward"></ion-icon></a></li>
+          <li class="navbar-item" id="navLogoutLi" style="display:none"><a href="#" class="navbar-link" id="logoutBtn"><span>Logout</span><ion-icon name="chevron-forward"></ion-icon></a></li>
         </ul>
-
       </nav>
 
+      <div class="user-nav-info" id="userNavInfo" style="display:none">
+        <ion-icon name="person-circle-outline"></ion-icon>
+        <span id="userNavName"></span>
+        <span class="role-badge" id="userNavRole"></span>
+        <button id="navBookBtn" onclick="location.href='BookTanker.html'">Book Now</button>
+      </div>
 
       <button class="nav-open-btn" aria-label="Open menu" data-nav-toggler>
         <ion-icon name="menu-outline"></ion-icon>
       </button>
-
       <div class="overlay" data-nav-toggler data-overlay></div>
-
     </div>
   </header>
 
   <main>
-    <article>
-
-
-      <section class="section hero" aria-label="home" id="home"
-        style="background-image: url('../images/hero-banner.jpg')">
-        <div class="container">
-
-          <div class="hero-content">
-
-            <h2 class="h1 hero-title">
-              <span class="span"> Simplifying logistics</span> one route at a time.
-            </h2>
-
-            <p class="hero-text">
-              Your reliable partner for seamless logistics and efficient parcel delivery.
-            </p>
-
-            <a href="#service" id="serviceButton" class="btn-outline">View Services</a>
-
-            <img src="../images/hero-shape.png" width="116" height="116" loading="lazy"
-              class="hero-shape shape-1">
-
-            <img src="../images/hero-shape.png" width="116" height="116" loading="lazy"
-              class="hero-shape shape-2">
-
+    <section class="section hero" id="home" aria-label="home">
+      <div class="container">
+        <div class="hero-content">
+          <h2 class="h1 hero-title">
+            <span class="span">Clean Water,</span> At Your Doorstep
+          </h2>
+          <p class="hero-text">PaaniLink connects neighbourhoods to City Water Board hydrants — book a water tanker, track delivery, and confirm receipt. All in one place.</p>
+          <div class="hero-actions">
+            <a href="BookTanker.html" class="btn-primary">📋 Book a Tanker</a>
+            <a href="MyBookings.html" class="btn-outline">🚚 Track Delivery</a>
           </div>
-
+          <img src="../images/hero-shape.png" width="116" height="116" loading="lazy" class="hero-shape shape-1">
+          <img src="../images/hero-shape.png" width="116" height="116" loading="lazy" class="hero-shape shape-2">
         </div>
-      </section>
+      </div>
+    </section>
 
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+      <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">Active Hydrants</div></div>
+      <div class="stat-item"><div class="stat-num">6</div><div class="stat-label">Registered Tankers</div></div>
+      <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">Service Zones</div></div>
+      <div class="stat-item"><div class="stat-num">24hr</div><div class="stat-label">Support Available</div></div>
+    </div>
 
-      <section class="section about" id="about" aria-label="about">
-        <div class="container">
+    <!-- How It Works -->
+    <section class="section" id="how" style="background:var(--alice-blue)">
+      <div class="container">
+        <p class="section-subtitle" style="text-align:center">Simple Process</p>
+        <h2 class="h2 section-title" style="text-align:center">How PaaniLink Works</h2>
+        <div class="how-steps">
+          <div class="how-step"><div class="step-num">1</div><h3>Register & Verify</h3><p>Sign up with your CNIC, phone, and delivery address. Apply for subsidised status if eligible.</p></div>
+          <div class="how-step"><div class="step-num">2</div><h3>Book a Tanker</h3><p>Select tanker size, hydrant, and schedule. Commercial bookings are auto-approved; subsidised go for officer review.</p></div>
+          <div class="how-step"><div class="step-num">3</div><h3>Dispatch & Track</h3><p>Hydrant operator assigns a driver and tanker. Track your delivery status in real-time.</p></div>
+          <div class="how-step"><div class="step-num">4</div><h3>Confirm Delivery</h3><p>Once water is delivered, confirm receipt or raise a dispute. Full history kept for every trip.</p></div>
+        </div>
+      </div>
+    </section>
 
-          <figure class="about-banner img-holder" style="--width: 400; --height: 720;">
-            <img src="../images/about-banner.jpg" width="400" height="720" loading="lazy" alt=""
-              class="img-cover">
-
-            <img src="../images/about-shape-2.png" width="500" height="500" loading="lazy" alt=""
-              class="abs-img abs-img-2">
-          </figure>
-
-          <div class="about-content">
-
-            <p class="section-subtitle">Why Choose Us?</p>
-
-            <h2 class="h2 section-title">We Are Professional Logistics Agency</h2>
-
-            <p class="section-text">
-              At DeliverEase, we believe in going beyond logistics to revolutionize how the world connects and conducts business. Our mission is to transform the logistics landscape through innovation, dedication, and cutting-edge technology.
-            </p>
-
-            <ul class="about-list">
-
-              <li class="about-item">
-                <div class="about-icon">
-                  <ion-icon name="chevron-forward"></ion-icon>
-                </div>
-
-                <p class="about-text">
-                  Go beyond logistics, make the world go round and revolutionize business.
-                </p>
-              </li>
-
-              <li class="about-item">
-                <div class="about-icon">
-                  <ion-icon name="chevron-forward"></ion-icon>
-                </div>
-
-                <p class="about-text">
-                  Logistics through innovation, dedication, and technology. ready, set, done.
-                </p>
-              </li>
-
-              <li class="about-item">
-                <div class="about-icon">
-                  <ion-icon name="chevron-forward"></ion-icon>
-                </div>
-
-                <p class="about-text">
-                  We take pride in serving our customers safely. together with passion.
-                </p>
-              </li>
-
-              <li class="about-item">
-                <div class="about-icon">
-                  <ion-icon name="chevron-forward"></ion-icon>
-                </div>
-
-                <p class="about-text">
-                  Imagination what we can easily see is only a small percentage.
-                </p>
-              </li>
-
-              <li class="about-item">
-                <div class="about-icon">
-                  <ion-icon name="chevron-forward"></ion-icon>
-                </div>
-
-                <p class="about-text">
-                  Quality never goes out of style. safety, quality, professionalism.
-                </p>
-              </li>
-
-              <li class="about-item">
-                <div class="about-icon">
-                  <ion-icon name="chevron-forward"></ion-icon>
-                </div>
-
-                <p class="about-text">
-                  The quality shows in every move we make where business lives.
-                </p>
-              </li>
-
-            </ul>
-
-            <a href="#" class="btn">Learn More</a>
-
+    <!-- Tanker Types -->
+    <section class="section" id="tankers">
+      <div class="container">
+        <p class="section-subtitle" style="text-align:center">Fleet Options</p>
+        <h2 class="h2 section-title" style="text-align:center">Available Tanker Sizes</h2>
+        <div class="tanker-types">
+          <div class="tanker-card">
+            <div class="tank-icon">🚛</div>
+            <h3>1,000 Gallon</h3>
+            <div class="price-tag">Commercial: Rs 900 · Subsidised: Rs 100</div>
+            <p>Best for small households and narrow lanes.</p>
           </div>
-
-        </div>
-      </section>
-
-      <section class="section service" id="service" aria-label="service">
-        <div class="container">
-
-          <p class="section-subtitle">Our Services</p>
-
-          <h2 class="h2 section-title">Trusted For Our Services</h2>
-
-          <p class="section-text">
-            Your reliable partner for seamless logistics and efficient parcel delivery.
-          </p>
-
-          <ul class="service-list grid-list">
-
-            <li>
-              <div class="service-card">
-
-
-                <h3 class="h3 card-title">
-                  <span class="span">01</span> Smart Route Optimization
-                </h3>
-
-                <p class="card-text">
-                  Benefit from advanced routing algorithms that optimize delivery routes based on real-time conditions.
-                </p>
-
-                <a href="#" class="btn-link">
-                  <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
-
-                  <span class="span">View Detail</span>
-                </a>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="service-card">
-
-
-                <h3 class="h3 card-title">
-                  <span class="span">02</span>Order Management
-                </h3>
-
-                <p class="card-text">
-                  Place, track, and manage your delivery orders with ease through our user-friendly interface and real time tracking.
-                </p>
-
-                <a href="#" class="btn-link">
-                  <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
-
-                  <span class="span">View Detail</span>
-                </a>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="service-card">
-
-                <h3 class="h3 card-title">
-                  <span class="span">03</span> Dynamic Pricing
-                </h3>
-
-                <p class="card-text">
-                  Enjoy transparent pricing calculated based on distance, vehicle type, and demand fluctuations.
-                </p>
-
-                <a href="#" class="btn-link">
-                  <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
-
-                  <span class="span">View Detail</span>
-                </a>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="service-card">
-
-
-                <h3 class="h3 card-title">
-                  <span class="span">04</span> Schedule Delivery
-                </h3>
-
-                <p class="card-text">
-                  Flexibly schedule your deliveries for specific times and dates to accommodate your needs..
-                </p>
-
-                <a href="#" class="btn-link">
-                  <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
-
-                  <span class="span">View Detail</span>
-                </a>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="service-card">
-
-
-                <h3 class="h3 card-title">
-                  <span class="span">05</span> Multi-Stop Delivery
-                </h3>
-
-                <p class="card-text">
-                  You can effortlessly send your packages to multiple locations in a single order.
-                </p>
-
-                <a href="#" class="btn-link">
-                  <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
-
-                  <span class="span">View Detail</span>
-                </a>
-
-            <li>
-              <div class="service-card">
-
-
-                <h3 class="h3 card-title">
-                  <span class="span">06</span>Delivery History and Analytics
-                </h3>
-
-                <p class="card-text">
-                  Track your delivery preferences and set priorities for faster service.
-                </p>
-
-                <a href="#" class="btn-link">
-                  <ion-icon name="chevron-forward" aria-hidden="true"></ion-icon>
-
-                  <span class="span">View Detail</span>
-                </a>
-
-              </div>
-            </li>
-
-              </div>
-            </li>
-
-          </ul>
-
-        </div>
-      </section>
-
-      <section class="section feature" aria-label="feature">
-        <div class="container">
-
-          <div class="title-wrapper">
-
-            <div>
-              <p class="section-subtitle">What Makes Us Unique?</p>
-
-              <h2 class="h2 section-title">Has a wide range of solutions</h2>
-
-              <p class="section-text">
-                Your delivery, your way—effortless and efficient!
-              </p>
-            </div>
-
-            <a href="#" class="btn">Read More</a>
-
+          <div class="tanker-card">
+            <div class="tank-icon">🚚</div>
+            <h3>3,000 Gallon</h3>
+            <div class="price-tag">Commercial: Rs 2,700 · Subsidised: Rs 300</div>
+            <p>Ideal for medium families and apartment blocks.</p>
           </div>
-
-          <ul class="feature-list grid-list">
-
-            <li>
-              <div class="feature-card" style="--card-number: '01'">
-
-                <div class="card-icon">
-                  <img src="../images/feature-icon-1.png" width="72" height="91" alt="">
-                </div>
-
-                <h3 class="h3 card-title">Plan Like a Pro!</h3>
-
-                <p class="card-text">
-                  Assign drop dates to your orders based on priority and streamline your logistics like never before. Whether it is a urgent shipments or routine deliveries, you decide when and where.
-                </p>
-
-                <a href="#" class="card-btn" aria-label="Read more">
-                  <ion-icon name="arrow-forward"></ion-icon>
-                </a>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="feature-card" style="--card-number: '02'">
-
-                <div class="card-icon">
-                  <img src="../images/feature-icon-2.png" width="94" height="94" alt="">
-                </div>
-
-                <h3 class="h3 card-title">Deliver smarter, pick up easier!</h3>
-
-                <p class="card-text">
-                   No more hassle or worry about logistics! Whether you need to collect parcels from different spots or deliver to various destinations, we’ve got you covered.
-                </p>
-
-                <a href="#" class="card-btn" aria-label="Read more">
-                  <ion-icon name="arrow-forward"></ion-icon>
-                </a>
-
-              </div>
-            </li>
-
-            <li>
-              <div class="feature-card" style="--card-number: '03'">
-
-                <div class="card-icon">
-                  <img src="../images/feature-icon-3.png" width="93" height="93" alt="">
-                </div>
-
-                <h3 class="h3 card-title">Stay Informed At Every Step! </h3>
-
-                <p class="card-text">
-                   Our system analyzes real-time traffic conditions and other factors to find the shortest route, ensuring efficiency while keeping costs low for you so you can easily monitor your order.
-                </p>
-
-                <a href="#" class="card-btn" aria-label="Read more">
-                  <ion-icon name="arrow-forward"></ion-icon>
-                </a>
-
-              </div>
-            </li>
-
-          </ul>
-
-        </div>
-      </section>
-
-      <section class="section newsletter" id="newsletter" aria-label="newsletter">
-        <div class="container">
-
-          <figure class="newsletter-banner img-holder">
-            <img src="../images/newsletter-banner.png" width="303" height="381" alt="newsletter banner"
-              class="w-100">
-          </figure>
-
-          <div class="newsletter-content">
-
-            <h2 class="h2 section-title">Deliver Your Orders Now!! </h2>
-
-            <form action="" class="newsletter-form">
-
-                <button type="button" class="newsletter-btn" id="newsletterButton" onclick="location.href='OrderPage.html'">Place Your Order</button>
-
-            </form>
-
+          <div class="tanker-card">
+            <div class="tank-icon">🏗️</div>
+            <h3>6,000 Gallon</h3>
+            <div class="price-tag">Commercial: Rs 5,400 · Subsidised: Rs 600</div>
+            <p>For commercial use, mosques, hospitals, and large buildings.</p>
           </div>
-
         </div>
-      </section>
+      </div>
+    </section>
 
-    </article>
+    <!-- Services -->
+    <section class="section service" id="service" aria-label="service">
+      <div class="container">
+        <p class="section-subtitle">Our Services</p>
+        <h2 class="h2 section-title">What PaaniLink Offers</h2>
+        <p class="section-text">End-to-end water tanker management for residents, officers, and operators.</p>
+        <ul class="service-list grid-list">
+          <li><div class="service-card"><h3 class="h3 card-title"><span class="span">01</span> Subsidised Deliveries</h3><p class="card-text">Registered low-income households, hospitals, and mosques get water at a fraction of the commercial rate.</p><a href="BookTanker.html" class="btn-link"><ion-icon name="chevron-forward" aria-hidden="true"></ion-icon><span class="span">Book Now</span></a></div></li>
+          <li><div class="service-card"><h3 class="h3 card-title"><span class="span">02</span> Quota Management</h3><p class="card-text">Each hydrant has a daily water quota. The system ensures no hydrant exceeds its limit, preventing shortages.</p><a href="#" class="btn-link"><ion-icon name="chevron-forward" aria-hidden="true"></ion-icon><span class="span">Learn More</span></a></div></li>
+          <li><div class="service-card"><h3 class="h3 card-title"><span class="span">03</span> Real-Time Tracking</h3><p class="card-text">From booking to confirmation, every delivery step is logged. Customers see live status updates.</p><a href="MyBookings.html" class="btn-link"><ion-icon name="chevron-forward" aria-hidden="true"></ion-icon><span class="span">Track Order</span></a></div></li>
+          <li><div class="service-card"><h3 class="h3 card-title"><span class="span">04</span> Role-Based Access</h3><p class="card-text">Customers, Zone Officers, Hydrant Operators, Drivers, and Admins each see only what they need.</p><a href="Login.html" class="btn-link"><ion-icon name="chevron-forward" aria-hidden="true"></ion-icon><span class="span">Login</span></a></div></li>
+          <li><div class="service-card"><h3 class="h3 card-title"><span class="span">05</span> Dispute Resolution</h3><p class="card-text">Customers can flag incomplete or incorrect deliveries. Zone Officers investigate and resolve disputes.</p><a href="#" class="btn-link"><ion-icon name="chevron-forward" aria-hidden="true"></ion-icon><span class="span">Learn More</span></a></div></li>
+          <li><div class="service-card"><h3 class="h3 card-title"><span class="span">06</span> City-Wide Reports</h3><p class="card-text">Administrators get full visibility — delivery rates, revenue, quota consumption, and subsidy usage.</p><a href="Dashboard.html" class="btn-link"><ion-icon name="chevron-forward" aria-hidden="true"></ion-icon><span class="span">Dashboard</span></a></div></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section newsletter" aria-label="cta">
+      <div class="container">
+        <figure class="newsletter-banner img-holder">
+          <img src="../images/newsletter-banner.png" width="303" height="381" alt="" class="w-100">
+        </figure>
+        <div class="newsletter-content">
+          <h2 class="h2 section-title">Need Water Today?</h2>
+          <p style="color:#fff;margin-bottom:15px;font-size:1.5rem">Book a tanker in under 2 minutes. No phone calls, no waiting.</p>
+          <div class="newsletter-form">
+            <button class="newsletter-btn" onclick="location.href='BookTanker.html'">📋 Book a Tanker Now</button>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 
-  <footer class="footer">
-    <div class="container" id="footer">
-
+  <footer class="footer" id="footer">
+    <div class="container">
       <div class="footer-top section">
-
         <div class="footer-brand">
-
-          <a href="#" class="logo">DeliverEase</a>
-
-          <p class="footer-text">
-            At DeliverEase, we believe in going beyond logistics to revolutionize how the world connects and conducts business. Our mission is to transform the logistics landscape through innovation, dedication, and cutting-edge technology.
-          </p>
-
+          <a href="Index.html" class="logo">PaaniLink</a>
+          <p class="footer-text">PaaniLink is the City Water Board's digital platform for booking, dispatching, and tracking water tanker deliveries across all zones.</p>
           <ul class="social-list">
-
-            <li>
-              <a href="#" class="social-link">
-                <ion-icon name="logo-facebook"></ion-icon>
-              </a>
-            </li>
-
-            <li>
-              <a href="#" class="social-link">
-                <ion-icon name="logo-twitter"></ion-icon>
-              </a>
-            </li>
-
-            <li>
-              <a href="https://www.instagram.com/?utm_source=pwa_homescreen&__pwa=1" target="_blank" class="social-link">
-                <ion-icon name="logo-instagram"></ion-icon>
-              </a>
-            </li>
-
+            <li><a href="#" class="social-link"><ion-icon name="logo-facebook"></ion-icon></a></li>
+            <li><a href="#" class="social-link"><ion-icon name="logo-twitter"></ion-icon></a></li>
+            <li><a href="#" class="social-link"><ion-icon name="logo-instagram"></ion-icon></a></li>
           </ul>
-
         </div>
-
         <ul class="footer-list">
-
-          <li>
-            <p class="footer-list-title">Quick Links</p>
-          </li>
-
-          <li>
-            <a href="#about" class="footer-link">About Us</a>
-          </li>
-
-          <li>
-            <a href="#service" class="footer-link">Services</a>
-          </li>
-
-          <li>
-            <a href="./OrderPage.html" target="_blank" class="footer-link">Place Order</a>
-          </li>
-          
-          <li>
-            <a href="./TrackOrder.html" class="footer-link">Track Order</a>
-          </li>
-
-          <li>
-            <a href="./Terms.html"  target="_blank" class="footer-link">Privacy Policy</a>
-          </li>
-
-
-        
-
+          <li><p class="footer-list-title">Quick Links</p></li>
+          <li><a href="BookTanker.html" class="footer-link">Book a Tanker</a></li>
+          <li><a href="MyBookings.html" class="footer-link">My Bookings</a></li>
+          <li><a href="Dashboard.html" class="footer-link">Dashboard</a></li>
+          <li><a href="Login.html"     class="footer-link">Login / Register</a></li>
         </ul>
-
-        <ul class="footer-list" id="service-footer">
-
-          <li>
-            <p class="footer-list-title">Services</p>
-          </li>
-
-          <li>
-            <a href="#service" class="footer-link">Multi-Stop Delivery</a>
-          </li>
-          <li>
-            <a href="#service" class="footer-link">Road Freight</a>
-          </li>
-
-          <li>
-            <a href="#service" class="footer-link">Tracking</a>
-          </li>
-
-
-          <li>
-            <a href="#service" class="footer-link">Scheduling</a>
-          </li>
-          <li></li>
-            <a href="#service" class="footer-link">Routing</a>
-          </li>
-
-        </ul>
-
         <ul class="footer-list">
-
-          <li>
-            <p class="footer-list-title">Contact Us</p>
-          </li>
-
-          <li>
-            <a href="#" class="footer-link"> Phone: +919867469877</a>
-          </li>
-
-          <li>
-            <a href="https://www.google.co.in/maps/place/Balaji+Annex/@19.29315,72.865598,973m/data=!3m1!1e3!4m10!1m2!2m1!1sbalaji+annex!3m6!1s0x3be7b1d24c9162d3:0x4fea08e5342d8c5!8m2!3d19.294911!4d72.8683207!15sCgxiYWxhamkgYW5uZXiSAQ9ob3VzaW5nX2NvbXBsZXjgAQA!16s%2Fg%2F11f8fxlh7_?entry=ttu&g_ep=EgoyMDI0MDkyNC4wIKXMDSoASAFQAw%3D%3D" target="_blank"class="footer-link">Office: B/303, Balaji Annexe Mira Road , Mumbai, Thane:401107</a>
-          </li>
-          
-          <li>
-            <a href="Feedback.html" target="_blank" class="footer-link">Feedback</a>
-          </li>
-
-          <li>
-            <a href="Terms.html"  target="_blank" class="footer-link">Terms & Condition</a>
-          </li>
-
+          <li><p class="footer-list-title">Services</p></li>
+          <li><a href="#service" class="footer-link">Subsidised Deliveries</a></li>
+          <li><a href="#service" class="footer-link">Commercial Bookings</a></li>
+          <li><a href="#service" class="footer-link">Quota Management</a></li>
+          <li><a href="#service" class="footer-link">Dispute Resolution</a></li>
         </ul>
-
+        <ul class="footer-list">
+          <li><p class="footer-list-title">Contact</p></li>
+          <li><a href="tel:+92300000001" class="footer-link">📞 0300-0000001</a></li>
+          <li><a href="mailto:support@paanilink.gov.pk" class="footer-link">✉️ support@paanilink.gov.pk</a></li>
+          <li><a href="Feedback.html"  class="footer-link">Submit Feedback</a></li>
+          <li><a href="Terms.html"     class="footer-link">Terms & Conditions</a></li>
+        </ul>
       </div>
-
       <div class="footer-bottom">
-        <p class="copyright">
-          &copy; 2024 DeliverEase. All Rights Reserved by <a href="#" class="copyright-link">Anish Tripathi</a>
-        </p>
+        <p class="copyright">&copy; 2024 PaaniLink – City Water Board. All Rights Reserved.</p>
       </div>
-
     </div>
   </footer>
-
 
   <a href="#top" class="back-top-btn" aria-label="Back to top" data-back-top-btn>
     <ion-icon name="chevron-up"></ion-icon>
   </a>
 
+  <script src="../js/mockApi.js"></script>
   <script src="../js/Script.js" defer></script>
-
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
+  <script>
+    // Update navbar based on logged in user
+    document.addEventListener('DOMContentLoaded', async () => {
+      const res = await mockApi.auth.getCurrentUser();
+      if (res.success) {
+        const user = res.data;
+        document.getElementById('userNavInfo').style.display = 'flex';
+        document.getElementById('navLoginLi').style.display = 'none';
+        document.getElementById('navDashLi').style.display = '';
+        document.getElementById('navLogoutLi').style.display = '';
+        document.getElementById('userNavName').textContent = user.name;
+        const roleLabels = { customer:'Customer', zone_officer:'Zone Officer', hydrant_operator:'Operator', driver:'Driver', admin:'Admin' };
+        document.getElementById('userNavRole').textContent = roleLabels[user.role] || user.role;
+      }
+      document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+        e.preventDefault();
+        await mockApi.auth.logout();
+        location.reload();
+      });
+    });
+  </script>
 </body>
-
 </html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Bookings – PaaniLink</title>
+  <link rel="shortcut icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/TrackOrder.css">
+  <link rel="stylesheet" href="../css/Navbar.css">
+  <style>
+    body { background:#f5f7fa; }
+    .page-hero { background:linear-gradient(135deg,#1a3a5c,#2980b9); color:#fff; padding:40px 20px; text-align:center; margin-top:80px; }
+    .page-hero h1 { font-size:3rem; font-weight:700; }
+    .page-hero p  { font-size:1.5rem; opacity:0.85; margin-top:8px; }
+    .content-wrap { max-width:1000px; margin:30px auto; padding:0 20px 60px; }
+    .filter-bar { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:24px; align-items:center; }
+    .filter-bar input { flex:1; min-width:200px; padding:10px 16px; border:2px solid #e0e0e0; border-radius:8px; font-size:1.4rem; }
+    .filter-bar input:focus { border-color:#FFA500; outline:none; }
+    .filter-bar select { padding:10px 14px; border:2px solid #e0e0e0; border-radius:8px; font-size:1.4rem; }
+    .tabs { display:flex; gap:0; border-bottom:3px solid #e0e0e0; margin-bottom:24px; }
+    .tab-btn { padding:12px 24px; background:none; border:none; font-size:1.5rem; font-weight:600; color:#666; cursor:pointer; border-bottom:3px solid transparent; margin-bottom:-3px; transition:all 0.2s; }
+    .tab-btn.active { color:#FFA500; border-bottom-color:#FFA500; }
+    .booking-card { background:#fff; border-radius:14px; padding:22px; margin-bottom:16px; box-shadow:0 3px 12px rgba(0,0,0,0.07); border-left:5px solid #e0e0e0; transition:box-shadow 0.2s; }
+    .booking-card:hover { box-shadow:0 6px 24px rgba(0,0,0,0.12); }
+    .booking-card.status-delivered      { border-left-color:#27ae60; }
+    .booking-card.status-in_transit     { border-left-color:#2980b9; }
+    .booking-card.status-approved       { border-left-color:#8e44ad; }
+    .booking-card.status-assigned       { border-left-color:#e67e22; }
+    .booking-card.status-pending_approval { border-left-color:#f39c12; }
+    .booking-card.status-cancelled      { border-left-color:#e74c3c; }
+    .booking-card.status-disputed       { border-left-color:#c0392b; }
+    .card-top { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; }
+    .booking-id { font-size:1.6rem; font-weight:700; color:#1a3a5c; }
+    .booking-id span { color:#888; font-size:1.3rem; font-weight:400; }
+    .status-badge { padding:4px 14px; border-radius:20px; font-size:1.2rem; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; }
+    .badge-delivered      { background:#d4edda; color:#155724; }
+    .badge-in_transit     { background:#cce5ff; color:#004085; }
+    .badge-approved       { background:#e2d9f3; color:#6f42c1; }
+    .badge-assigned       { background:#ffeeba; color:#856404; }
+    .badge-pending_approval { background:#fff3cd; color:#856404; }
+    .badge-cancelled      { background:#fee; color:#c0392b; }
+    .badge-disputed       { background:#f8d7da; color:#721c24; }
+    .card-details { display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:10px; margin:14px 0; }
+    .detail-item { font-size:1.3rem; color:#555; }
+    .detail-item strong { color:#333; display:block; font-size:1.2rem; margin-bottom:2px; }
+    .card-actions { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; padding-top:14px; border-top:1px solid #f0f0f0; }
+    .btn-action { padding:8px 18px; border:none; border-radius:8px; font-size:1.3rem; font-weight:600; cursor:pointer; transition:all 0.2s; }
+    .btn-confirm  { background:#27ae60; color:#fff; }
+    .btn-confirm:hover  { background:#219a52; }
+    .btn-dispute  { background:#e74c3c; color:#fff; }
+    .btn-dispute:hover  { background:#c0392b; }
+    .btn-cancel   { background:#f0f0f0; color:#333; }
+    .btn-cancel:hover   { background:#ddd; }
+    .btn-pay      { background:#FFA500; color:#fff; }
+    .btn-pay:hover      { background:#e08800; }
+    .empty-state { text-align:center; padding:60px 20px; color:#888; }
+    .empty-state .icon { font-size:5rem; margin-bottom:16px; }
+    .empty-state h3 { font-size:2rem; margin-bottom:8px; }
+    .empty-state a { color:#FFA500; text-decoration:none; font-weight:600; }
+    .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.5); z-index:1000; display:none; align-items:center; justify-content:center; padding:20px; }
+    .modal-overlay.open { display:flex; }
+    .modal-box { background:#fff; border-radius:16px; padding:30px; max-width:480px; width:100%; }
+    .modal-box h3 { font-size:2rem; color:#1a3a5c; margin-bottom:16px; }
+    .modal-box textarea { width:100%; padding:12px; border:2px solid #e0e0e0; border-radius:8px; font-size:1.4rem; resize:vertical; }
+    .modal-box textarea:focus { border-color:#FFA500; outline:none; }
+    .modal-actions { display:flex; gap:12px; margin-top:16px; justify-content:flex-end; }
+    .modal-actions button { padding:10px 20px; border:none; border-radius:8px; font-size:1.4rem; font-weight:600; cursor:pointer; }
+    .btn-modal-cancel { background:#f0f0f0; color:#333; }
+    .btn-modal-submit { background:#e74c3c; color:#fff; }
+    .type-tag { font-size:1.1rem; padding:2px 10px; border-radius:20px; display:inline-block; margin-left:8px; }
+    .type-commercial { background:#e3f2fd; color:#1565c0; }
+    .type-subsidised  { background:#e8f5e9; color:#2e7d32; }
+    @media(max-width:600px) { .card-top { flex-direction:column; } .card-details { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+
+  <header class="header" data-header>
+    <div class="container">
+      <h1><a href="Index.html" class="logo"><img src="../../logo.png" alt="PaaniLink" style="height:36px;border-radius:8px;vertical-align:middle;"><span id="logo-name">PaaniLink</span></a></h1>
+      <nav class="navbar" data-navbar>
+        <div class="navbar-top"><a href="Index.html" class="logo">PaaniLink</a><button class="nav-close-btn" data-nav-toggler><ion-icon name="close-outline"></ion-icon></button></div>
+        <ul class="navbar-list">
+          <li class="navbar-item"><a href="Index.html"      class="navbar-link"><span>Home</span></a></li>
+          <li class="navbar-item"><a href="BookTanker.html" class="navbar-link"><span>Book Tanker</span></a></li>
+          <li class="navbar-item"><a href="MyBookings.html" class="navbar-link"><span>My Bookings</span></a></li>
+          <li class="navbar-item"><a href="SubsidyApply.html" class="navbar-link"><span>Subsidy</span></a></li>
+          <li class="navbar-item"><a href="#" id="logoutLink" class="navbar-link"><span>Logout</span></a></li>
+        </ul>
+      </nav>
+      <button class="nav-open-btn" data-nav-toggler aria-label="Open menu"><ion-icon name="menu-outline"></ion-icon></button>
+      <div class="overlay" data-nav-toggler data-overlay></div>
+    </div>
+  </header>
+
+  <div class="page-hero">
+    <h1>📦 My Bookings</h1>
+    <p>Track all your water tanker bookings from request to delivery</p>
+  </div>
+
+  <div class="content-wrap">
+    <div class="filter-bar">
+      <input type="text" id="searchInput" placeholder="🔍  Search by booking ID or address…" oninput="filterBookings()">
+      <select id="statusFilter" onchange="filterBookings()">
+        <option value="">All Status</option>
+        <option value="pending_approval">Pending Approval</option>
+        <option value="approved">Approved</option>
+        <option value="assigned">Assigned</option>
+        <option value="in_transit">In Transit</option>
+        <option value="delivered">Delivered</option>
+        <option value="cancelled">Cancelled</option>
+        <option value="disputed">Disputed</option>
+      </select>
+      <select id="typeFilter" onchange="filterBookings()">
+        <option value="">All Types</option>
+        <option value="commercial">Commercial</option>
+        <option value="subsidised">Subsidised</option>
+      </select>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('active', this)">Active</button>
+      <button class="tab-btn"       onclick="switchTab('past',   this)">Past Bookings</button>
+      <button class="tab-btn"       onclick="switchTab('all',    this)">All</button>
+    </div>
+
+    <div id="bookingsList"></div>
+  </div>
+
+  <!-- Dispute Modal -->
+  <div class="modal-overlay" id="disputeModal">
+    <div class="modal-box">
+      <h3>🚨 Raise a Dispute</h3>
+      <p style="font-size:1.4rem;color:#555;margin-bottom:12px">Describe the issue with your delivery:</p>
+      <textarea id="disputeReason" rows="4" placeholder="e.g. Tanker arrived half-empty, wrong address delivered to…"></textarea>
+      <div class="modal-actions">
+        <button class="btn-modal-cancel" onclick="closeDispute()">Cancel</button>
+        <button class="btn-modal-submit" onclick="submitDispute()">Submit Dispute</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/mockApi.js"></script>
+  <script src="../js/Navbar.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script>
+    let currentUser = null;
+    let allBookings  = [];
+    let currentTab   = 'active';
+    let disputeId    = null;
+
+    const ACTIVE_STATUSES = ['pending_approval','approved','assigned','in_transit'];
+    const PAST_STATUSES   = ['delivered','cancelled','disputed'];
+
+    const STATUS_LABELS = { pending_approval:'Pending Approval', approved:'Approved', assigned:'Assigned', in_transit:'In Transit', delivered:'Delivered', cancelled:'Cancelled', disputed:'Disputed' };
+
+    mockApi.auth.getCurrentUser().then(async res => {
+      if (!res.success) { location.href = 'Login.html'; return; }
+      currentUser = res.data;
+      await loadBookings();
+    });
+
+    async function loadBookings() {
+      const res = await mockApi.bookings.getBookings({ customerId: currentUser.id });
+      allBookings = res.success ? res.data : [];
+      filterBookings();
+    }
+
+    function switchTab(tab, btn) {
+      currentTab = tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filterBookings();
+    }
+
+    function filterBookings() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const status = document.getElementById('statusFilter').value;
+      const type   = document.getElementById('typeFilter').value;
+
+      let list = allBookings;
+      if (currentTab === 'active') list = list.filter(b => ACTIVE_STATUSES.includes(b.status));
+      if (currentTab === 'past')   list = list.filter(b => PAST_STATUSES.includes(b.status));
+      if (status) list = list.filter(b => b.status === status);
+      if (type)   list = list.filter(b => b.type   === type);
+      if (search) list = list.filter(b => b.id.toLowerCase().includes(search) || b.deliveryAddress.toLowerCase().includes(search));
+
+      list.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      renderBookings(list);
+    }
+
+    function renderBookings(list) {
+      const container = document.getElementById('bookingsList');
+      if (!list.length) {
+        container.innerHTML = `<div class="empty-state"><div class="icon">📋</div><h3>No bookings found</h3><p>Book your first tanker <a href="BookTanker.html">here</a></p></div>`;
+        return;
+      }
+      container.innerHTML = list.map(b => bookingCardHTML(b)).join('');
+    }
+
+    function bookingCardHTML(b) {
+      const dateStr = new Date(b.createdAt).toLocaleDateString('en-PK', { day:'numeric', month:'short', year:'numeric' });
+      const schedStr= new Date(b.scheduledDate).toLocaleDateString('en-PK', { day:'numeric', month:'short', year:'numeric' });
+      const badgeClass = `badge-${b.status}`;
+      const typeClass  = `type-${b.type}`;
+
+      let actions = '';
+      if (b.status === 'in_transit')       actions += `<button class="btn-action btn-confirm"  onclick="confirmDelivery('${b.id}')">✅ Confirm Delivery</button>`;
+      if (b.status === 'in_transit' || b.status === 'delivered') actions += `<button class="btn-action btn-dispute"  onclick="openDispute('${b.id}')">🚨 Raise Dispute</button>`;
+      if (['pending_approval','approved','assigned'].includes(b.status)) actions += `<button class="btn-action btn-cancel" onclick="cancelBooking('${b.id}')">✖ Cancel</button>`;
+      if (b.paymentStatus === 'pending' && b.status !== 'cancelled') actions += `<button class="btn-action btn-pay" onclick="simulatePay('${b.id}')">💳 Pay Rs ${b.amount.toLocaleString()}</button>`;
+
+      return `
+        <div class="booking-card status-${b.status}" id="card-${b.id}">
+          <div class="card-top">
+            <div class="booking-id">#${b.id} <span class="type-tag ${typeClass}">${b.type}</span></div>
+            <span class="status-badge ${badgeClass}">${STATUS_LABELS[b.status] || b.status}</span>
+          </div>
+          <div class="card-details">
+            <div class="detail-item"><strong>Delivery Address</strong>${b.deliveryAddress}</div>
+            <div class="detail-item"><strong>Scheduled</strong>${schedStr}</div>
+            <div class="detail-item"><strong>Amount</strong>Rs ${b.amount.toLocaleString()}</div>
+            <div class="detail-item"><strong>Payment</strong><span style="color:${b.paymentStatus==='paid'?'#27ae60':'#e67e22'}">${b.paymentStatus === 'paid' ? '✅ Paid' : '⏳ Pending'}</span></div>
+            <div class="detail-item"><strong>Booked On</strong>${dateStr}</div>
+            ${b.tankerId ? `<div class="detail-item"><strong>Tanker</strong>${b.tankerId}</div>` : ''}
+            ${b.driverId ? `<div class="detail-item"><strong>Driver</strong>${b.driverId}</div>` : ''}
+            ${b.notes    ? `<div class="detail-item"><strong>Notes</strong>${b.notes}</div>` : ''}
+          </div>
+          ${actions ? `<div class="card-actions">${actions}</div>` : ''}
+        </div>`;
+    }
+
+    async function confirmDelivery(id) {
+      if (!confirm('Confirm that the water tanker was delivered to your address?')) return;
+      const res = await mockApi.bookings.confirmDelivery(id);
+      if (res.success) { await loadBookings(); alert('Delivery confirmed! Thank you.'); }
+      else alert(res.error);
+    }
+
+    function openDispute(id) { disputeId = id; document.getElementById('disputeModal').classList.add('open'); }
+    function closeDispute()  { disputeId = null; document.getElementById('disputeModal').classList.remove('open'); document.getElementById('disputeReason').value = ''; }
+
+    async function submitDispute() {
+      const reason = document.getElementById('disputeReason').value.trim();
+      if (!reason) { alert('Please describe the issue.'); return; }
+      const res = await mockApi.bookings.disputeDelivery(disputeId, reason);
+      if (res.success) { closeDispute(); await loadBookings(); alert('Dispute raised. A Zone Officer will review it.'); }
+      else alert(res.error);
+    }
+
+    async function cancelBooking(id) {
+      if (!confirm('Are you sure you want to cancel this booking?')) return;
+      const res = await mockApi.bookings.cancelBooking(id);
+      if (res.success) { await loadBookings(); }
+      else alert(res.error);
+    }
+
+    async function simulatePay(id) {
+      if (!confirm('Simulate payment for this booking?')) return;
+      const res = await mockApi.bookings.updateBookingStatus(id, null, { paymentStatus: 'paid' });
+      // actually just mark payment paid without changing status
+      const bookings = JSON.parse(localStorage.getItem('pl_bookings') || '[]');
+      const idx = bookings.findIndex(b => b.id === id);
+      if (idx !== -1) { bookings[idx].paymentStatus = 'paid'; localStorage.setItem('pl_bookings', JSON.stringify(bookings)); }
+      await loadBookings();
+      alert('Payment recorded successfully!');
+    }
+
+    document.getElementById('logoutLink').addEventListener('click', async (e) => {
+      e.preventDefault(); await mockApi.auth.logout(); location.href = 'Login.html';
+    });
+  </script>
+</body>
+</html>

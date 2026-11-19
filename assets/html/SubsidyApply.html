@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply for Subsidy – PaaniLink</title>
+  <link rel="shortcut icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/Login.css">
+  <link rel="stylesheet" href="../css/Navbar.css">
+  <style>
+    body { background:#f5f7fa; }
+    .page-wrap { max-width:620px; margin:120px auto 60px; padding:0 20px; }
+    .card { background:#fff; border-radius:16px; padding:36px; box-shadow:0 6px 24px rgba(0,0,0,0.09); }
+    .card h2 { font-size:2.4rem; color:#1a3a5c; margin-bottom:8px; }
+    .card .sub { font-size:1.4rem; color:#666; margin-bottom:28px; }
+    .status-box { border-radius:12px; padding:18px 22px; margin-bottom:24px; }
+    .status-none     { background:#f8f9fa; border:2px solid #dee2e6; }
+    .status-pending  { background:#fff3cd; border:2px solid #ffc107; }
+    .status-approved { background:#d4edda; border:2px solid #28a745; }
+    .status-title { font-size:1.6rem; font-weight:700; margin-bottom:6px; }
+    .status-desc  { font-size:1.4rem; color:#555; }
+    .form-group { margin-bottom:20px; }
+    .form-group label { display:block; font-weight:600; color:#333; margin-bottom:7px; font-size:1.4rem; }
+    .form-group input, .form-group select, .form-group textarea { width:100%; padding:12px 16px; border:2px solid #e0e0e0; border-radius:8px; font-size:1.5rem; font-family:inherit; transition:border-color 0.3s; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:#FFA500; outline:none; }
+    .form-hint { font-size:1.2rem; color:#888; margin-top:5px; }
+    .btn-submit { width:100%; padding:14px; background:#27ae60; color:#fff; border:none; border-radius:8px; font-size:1.6rem; font-weight:700; cursor:pointer; }
+    .btn-submit:hover { background:#219a52; }
+    .btn-submit:disabled { background:#ccc; }
+    .alert { border-radius:8px; padding:12px 16px; font-size:1.4rem; margin-bottom:16px; display:none; }
+    .alert-err  { background:#fee; color:#c0392b; border:1px solid #f5c6cb; }
+    .alert-ok   { background:#d4edda; color:#155724; border:1px solid #c3e6cb; }
+    .eligibility-list { margin:16px 0; padding-left:0; list-style:none; }
+    .eligibility-list li { font-size:1.4rem; color:#444; padding:6px 0; border-bottom:1px solid #f0f0f0; display:flex; gap:10px; }
+    .eligibility-list li::before { content:'✅'; }
+    .back-link { display:inline-block; margin-top:16px; color:#FFA500; font-size:1.4rem; text-decoration:none; font-weight:600; }
+    .back-link:hover { text-decoration:underline; }
+  </style>
+</head>
+<body>
+
+  <header class="header" data-header style="background:#1a3a5c">
+    <div class="container">
+      <h1><a href="Index.html" class="logo"><img src="../../logo.png" alt="PaaniLink" style="height:36px;border-radius:8px;vertical-align:middle;"><span id="logo-name" style="color:#FFA500">PaaniLink</span></a></h1>
+      <a href="MyBookings.html" style="color:#fff;text-decoration:none;font-size:1.4rem">← My Bookings</a>
+    </div>
+  </header>
+
+  <div class="page-wrap">
+    <div class="card">
+      <h2>🤝 Apply for Subsidised Status</h2>
+      <p class="sub">Subsidised customers receive water at 10% of the commercial rate.</p>
+
+      <!-- Status Box -->
+      <div class="status-box status-none" id="statusBox">
+        <div class="status-title" id="statusTitle">Loading…</div>
+        <div class="status-desc"  id="statusDesc"></div>
+      </div>
+
+      <div class="alert alert-err" id="errMsg"></div>
+      <div class="alert alert-ok"  id="okMsg"></div>
+
+      <!-- Eligibility Info -->
+      <div id="eligibilityInfo">
+        <h3 style="font-size:1.6rem;color:#1a3a5c;margin-bottom:10px">Who is eligible?</h3>
+        <ul class="eligibility-list">
+          <li>Registered low-income households (with proof of income)</li>
+          <li>Government hospitals and clinics</li>
+          <li>Mosques and religious institutions</li>
+          <li>Schools in underprivileged areas</li>
+        </ul>
+      </div>
+
+      <!-- Application Form -->
+      <form id="subsidyForm" style="display:none">
+        <div class="form-group">
+          <label for="proofType">Type of Proof <span style="color:red">*</span></label>
+          <select id="proofType" required>
+            <option value="">-- Select proof type --</option>
+            <option value="income_cert">Income Certificate</option>
+            <option value="social_protection">Social Protection Card (Ehsaas/BISP)</option>
+            <option value="hospital_reg">Hospital Registration</option>
+            <option value="mosque_cert">Mosque Registration Certificate</option>
+            <option value="school_cert">School Registration Certificate</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="docNumber">Document / Reference Number <span style="color:red">*</span></label>
+          <input type="text" id="docNumber" placeholder="e.g. BISP-2024-001234" required>
+        </div>
+        <div class="form-group">
+          <label for="reason">Reason for Application <span style="color:red">*</span></label>
+          <textarea id="reason" rows="3" placeholder="Briefly explain why you need subsidised water…" required></textarea>
+        </div>
+        <div class="form-group">
+          <label>Document Upload (Simulated)</label>
+          <input type="text" id="docFilename" placeholder="e.g. income_cert_2024.pdf" readonly style="background:#f8f9fa;cursor:not-allowed">
+          <p class="form-hint">In this demo, file upload is simulated. Enter a filename above or leave blank.</p>
+          <button type="button" onclick="simulateUpload()" style="margin-top:8px;padding:8px 16px;background:#FFA500;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:1.3rem">📎 Simulate Upload</button>
+        </div>
+        <button type="submit" class="btn-submit" id="applyBtn">Submit Application</button>
+      </form>
+
+      <a href="MyBookings.html" class="back-link">← Back to My Bookings</a>
+    </div>
+  </div>
+
+  <script src="../js/mockApi.js"></script>
+  <script>
+    let currentUser = null;
+
+    mockApi.auth.getCurrentUser().then(async res => {
+      if (!res.success) { location.href = 'Login.html'; return; }
+      currentUser = res.data;
+      renderStatus();
+    });
+
+    function renderStatus() {
+      const box   = document.getElementById('statusBox');
+      const title = document.getElementById('statusTitle');
+      const desc  = document.getElementById('statusDesc');
+      const form  = document.getElementById('subsidyForm');
+
+      if (currentUser.subsidyStatus === 'approved') {
+        box.className = 'status-box status-approved';
+        title.textContent = '✅ Subsidy Approved';
+        desc.textContent  = `Your application is approved. Monthly limit: ${(currentUser.monthlyLimit||5000).toLocaleString()} gallons. Used: ${(currentUser.monthlyUsed||0).toLocaleString()} gallons.`;
+      } else if (currentUser.subsidyStatus === 'pending') {
+        box.className = 'status-box status-pending';
+        title.textContent = '⏳ Application Under Review';
+        desc.textContent  = 'Your subsidy application is pending approval by a Zone Officer.';
+      } else {
+        box.className = 'status-box status-none';
+        title.textContent = '📄 No Subsidy Status';
+        desc.textContent  = 'You can apply for subsidised water below.';
+        form.style.display = 'block';
+      }
+    }
+
+    function simulateUpload() {
+      const proofType = document.getElementById('proofType').value || 'document';
+      document.getElementById('docFilename').value = `${proofType}_${currentUser.cnic.replace(/-/g,'')}.pdf`;
+    }
+
+    document.getElementById('subsidyForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn      = document.getElementById('applyBtn');
+      const proofType = document.getElementById('proofType').value;
+      const docNum    = document.getElementById('docNumber').value.trim();
+      const reason    = document.getElementById('reason').value.trim();
+
+      if (!proofType || !docNum || !reason) {
+        const el = document.getElementById('errMsg'); el.textContent = 'Please fill all required fields.'; el.style.display = 'block'; return;
+      }
+
+      btn.disabled = true; btn.textContent = 'Submitting…';
+      const proofData = `${proofType}|${docNum}|${reason}|${document.getElementById('docFilename').value||'no-file'}`;
+      const res = await mockApi.users.applyForSubsidy(currentUser.id, proofData);
+
+      if (res.success) {
+        const ok = document.getElementById('okMsg'); ok.textContent = 'Application submitted! A Zone Officer will review it.'; ok.style.display = 'block';
+        currentUser = res.data;
+        setTimeout(() => renderStatus(), 500);
+        document.getElementById('subsidyForm').style.display = 'none';
+      } else {
+        const el = document.getElementById('errMsg'); el.textContent = res.error; el.style.display = 'block';
+        btn.disabled = false; btn.textContent = 'Submit Application';
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Tanker – PaaniLink</title>
+  <link rel="shortcut icon" href="../../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../css/OrderPage.css">
+  <link rel="stylesheet" href="../css/Navbar.css">
+  <style>
+    body { background:#f5f7fa; }
+    .page-hero { background:linear-gradient(135deg,#1a3a5c,#2980b9); color:#fff; padding:40px 20px; text-align:center; }
+    .page-hero h1 { font-size:3rem; font-weight:700; }
+    .page-hero p  { font-size:1.5rem; opacity:0.85; margin-top:8px; }
+    .booking-container { max-width:760px; margin:40px auto; padding:0 20px 60px; }
+    .steps-nav { display:flex; justify-content:center; gap:0; margin-bottom:35px; }
+    .step-pill { display:flex; align-items:center; gap:8px; padding:10px 20px; background:#e0e0e0; color:#666; font-size:1.4rem; font-weight:600; cursor:default; position:relative; }
+    .step-pill:not(:last-child)::after { content:'▶'; position:absolute; right:-12px; color:#e0e0e0; z-index:1; font-size:1.4rem; }
+    .step-pill.active { background:#FFA500; color:#fff; }
+    .step-pill.done   { background:#27ae60; color:#fff; }
+    .step-pill span.num { background:rgba(255,255,255,0.3); border-radius:50%; width:24px; height:24px; display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
+    .card { background:#fff; border-radius:14px; padding:30px; box-shadow:0 4px 20px rgba(0,0,0,0.08); }
+    .card h2 { color:#1a3a5c; font-size:2rem; margin-bottom:20px; display:flex; align-items:center; gap:10px; }
+    .form-group { margin-bottom:20px; }
+    .form-group label { display:block; font-weight:600; color:#333; margin-bottom:7px; font-size:1.4rem; }
+    .form-group input, .form-group select, .form-group textarea { width:100%; padding:12px 16px; border:2px solid #e0e0e0; border-radius:8px; font-size:1.5rem; transition:border-color 0.3s; font-family:inherit; }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color:#FFA500; outline:none; box-shadow:0 0 0 3px rgba(255,165,0,0.15); }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .tanker-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:16px; }
+    .tanker-opt { border:2px solid #e0e0e0; border-radius:12px; padding:20px; cursor:pointer; text-align:center; transition:all 0.2s; }
+    .tanker-opt:hover { border-color:#FFA500; background:#fffbf0; }
+    .tanker-opt.selected { border-color:#FFA500; background:#fff8e1; box-shadow:0 0 0 3px rgba(255,165,0,0.2); }
+    .tanker-opt.unavailable { opacity:0.4; cursor:not-allowed; }
+    .tanker-icon { font-size:3rem; margin-bottom:8px; }
+    .tanker-opt h4 { font-size:1.6rem; color:#1a3a5c; }
+    .tanker-opt .cap { font-size:1.3rem; color:#666; margin:4px 0; }
+    .tanker-opt .price-tag { font-size:1.4rem; font-weight:700; color:#FFA500; }
+    .tanker-opt .avail-badge { font-size:1.1rem; display:inline-block; padding:2px 10px; border-radius:20px; margin-top:6px; }
+    .avail-badge.yes { background:#d4edda; color:#155724; }
+    .avail-badge.no  { background:#fee; color:#c0392b; }
+    .type-toggle { display:flex; gap:0; border:2px solid #e0e0e0; border-radius:8px; overflow:hidden; }
+    .type-btn { flex:1; padding:12px; border:none; background:#fff; cursor:pointer; font-size:1.5rem; font-weight:600; transition:all 0.2s; }
+    .type-btn.active { background:#1a3a5c; color:#fff; }
+    .type-btn.subsidised.active { background:#27ae60; }
+    .subsidy-note { background:#d4edda; color:#155724; border-radius:8px; padding:12px 16px; font-size:1.3rem; margin-top:12px; display:none; }
+    .subsidy-warn { background:#fff3cd; color:#856404; border-radius:8px; padding:12px 16px; font-size:1.3rem; margin-top:12px; display:none; }
+    .btn-row { display:flex; gap:12px; justify-content:flex-end; margin-top:24px; }
+    .btn-prev { background:#f0f0f0; color:#333; padding:12px 24px; border:none; border-radius:8px; font-size:1.5rem; font-weight:600; cursor:pointer; }
+    .btn-prev:hover { background:#ddd; }
+    .btn-next { background:#FFA500; color:#fff; padding:12px 28px; border:none; border-radius:8px; font-size:1.5rem; font-weight:700; cursor:pointer; }
+    .btn-next:hover { background:#e08800; }
+    .btn-next:disabled { background:#ccc; cursor:not-allowed; }
+    .summary-row { display:flex; justify-content:space-between; padding:12px 0; border-bottom:1px solid #f0f0f0; font-size:1.4rem; }
+    .summary-row:last-child { border-bottom:none; font-weight:700; font-size:1.6rem; color:#1a3a5c; }
+    .summary-row span:last-child { font-weight:600; }
+    .success-box { text-align:center; padding:40px 20px; }
+    .success-icon { font-size:6rem; }
+    .success-box h3 { font-size:2.4rem; color:#27ae60; margin:16px 0 8px; }
+    .success-box p  { font-size:1.5rem; color:#555; }
+    .success-box .booking-id { background:#f0fff4; border:2px solid #27ae60; border-radius:8px; padding:12px 24px; display:inline-block; font-size:1.8rem; font-weight:700; color:#27ae60; margin:20px 0; }
+    .success-actions { display:flex; gap:12px; justify-content:center; margin-top:16px; flex-wrap:wrap; }
+    .success-actions a { padding:12px 24px; border-radius:8px; font-size:1.5rem; font-weight:600; text-decoration:none; }
+    .btn-track   { background:#1a3a5c; color:#fff; }
+    .btn-new-book { background:#FFA500; color:#fff; }
+    .err-msg { background:#fee; color:#c0392b; border-radius:8px; padding:10px 14px; font-size:1.4rem; margin-bottom:16px; display:none; }
+    .loading { text-align:center; padding:30px; font-size:1.5rem; color:#888; }
+    .step-content { display:none; }
+    .step-content.active { display:block; }
+    @media(max-width:600px) { .form-row { grid-template-columns:1fr; } .steps-nav { flex-direction:column; align-items:stretch; } .step-pill:not(:last-child)::after { display:none; } }
+  </style>
+</head>
+<body>
+
+  <header class="header" data-header>
+    <div class="container">
+      <h1><a href="Index.html" class="logo"><img src="../../logo.png" alt="PaaniLink" style="height:36px;border-radius:8px;vertical-align:middle;"><span id="logo-name">PaaniLink</span></a></h1>
+      <nav class="navbar" data-navbar>
+        <div class="navbar-top"><a href="Index.html" class="logo">PaaniLink</a><button class="nav-close-btn" data-nav-toggler><ion-icon name="close-outline"></ion-icon></button></div>
+        <ul class="navbar-list">
+          <li class="navbar-item"><a href="Index.html"      class="navbar-link"><span>Home</span></a></li>
+          <li class="navbar-item"><a href="BookTanker.html" class="navbar-link"><span>Book Tanker</span></a></li>
+          <li class="navbar-item"><a href="MyBookings.html" class="navbar-link"><span>My Bookings</span></a></li>
+          <li class="navbar-item"><a href="Dashboard.html"  class="navbar-link"><span>Dashboard</span></a></li>
+          <li class="navbar-item"><a href="#" id="logoutLink" class="navbar-link"><span>Logout</span></a></li>
+        </ul>
+      </nav>
+      <button class="nav-open-btn" data-nav-toggler aria-label="Open menu"><ion-icon name="menu-outline"></ion-icon></button>
+      <div class="overlay" data-nav-toggler data-overlay></div>
+    </div>
+  </header>
+
+  <div class="page-hero" style="margin-top:80px">
+    <h1>📋 Book a Water Tanker</h1>
+    <p>Fill the form below to request a tanker delivery to your address</p>
+  </div>
+
+  <div class="booking-container">
+
+    <!-- Steps indicator -->
+    <div class="steps-nav">
+      <div class="step-pill active" id="pill1"><span class="num">1</span> Booking Details</div>
+      <div class="step-pill"        id="pill2"><span class="num">2</span> Select Tanker</div>
+      <div class="step-pill"        id="pill3"><span class="num">3</span> Review & Confirm</div>
+    </div>
+
+    <!-- Step 1: Booking Details -->
+    <div class="step-content active" id="step1">
+      <div class="card">
+        <h2>🗒️ Booking Details</h2>
+        <div class="err-msg" id="err1"></div>
+
+        <div class="form-group">
+          <label>Booking Type</label>
+          <div class="type-toggle">
+            <button type="button" class="type-btn active" id="btnCommercial" onclick="selectType('commercial')">💰 Commercial</button>
+            <button type="button" class="type-btn subsidised" id="btnSubsidised" onclick="selectType('subsidised')">🤝 Subsidised</button>
+          </div>
+          <div class="subsidy-note" id="subsidyNote">✅ You have an approved subsidy. Subsidised rate will be applied.</div>
+          <div class="subsidy-warn" id="subsidyWarn">⚠️ Subsidised bookings require approved subsidy status. <a href="SubsidyApply.html">Apply here</a>.</div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="zoneSelect">Zone <span style="color:red">*</span></label>
+            <select id="zoneSelect" required onchange="loadHydrants()">
+              <option value="">-- Select Zone --</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="hydrantSelect">Hydrant <span style="color:red">*</span></label>
+            <select id="hydrantSelect" required onchange="loadTankersForHydrant()">
+              <option value="">-- Select Hydrant --</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="deliveryAddress">Delivery Address <span style="color:red">*</span></label>
+          <input type="text" id="deliveryAddress" placeholder="Full delivery address" required>
+        </div>
+
+        <div class="form-group">
+          <label for="scheduledDate">Preferred Delivery Date <span style="color:red">*</span></label>
+          <input type="date" id="scheduledDate" required>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Special Notes (optional)</label>
+          <textarea id="notes" rows="2" placeholder="e.g. Gate code, preferred time slot…"></textarea>
+        </div>
+
+        <div class="btn-row"><button class="btn-next" onclick="goStep2()">Next →</button></div>
+      </div>
+    </div>
+
+    <!-- Step 2: Tanker Selection -->
+    <div class="step-content" id="step2">
+      <div class="card">
+        <h2>🚛 Select a Tanker</h2>
+        <div class="err-msg" id="err2"></div>
+        <div class="tanker-grid" id="tankerGrid"><div class="loading">Loading tankers…</div></div>
+        <div class="btn-row">
+          <button class="btn-prev" onclick="goTo(1)">← Back</button>
+          <button class="btn-next" onclick="goStep3()">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 3: Review & Confirm -->
+    <div class="step-content" id="step3">
+      <div class="card">
+        <h2>✅ Review & Confirm</h2>
+        <div class="err-msg" id="err3"></div>
+        <div id="summaryBox"></div>
+        <div class="btn-row">
+          <button class="btn-prev" onclick="goTo(2)">← Back</button>
+          <button class="btn-next" id="confirmBtn" onclick="submitBooking()">Confirm Booking</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Success -->
+    <div class="step-content" id="stepSuccess">
+      <div class="card success-box">
+        <div class="success-icon">🎉</div>
+        <h3>Booking Submitted!</h3>
+        <p id="successMsg">Your booking has been received.</p>
+        <div class="booking-id" id="successBookingId">--</div>
+        <div class="success-actions">
+          <a href="MyBookings.html" class="btn-track">📦 View My Bookings</a>
+          <a href="BookTanker.html" class="btn-new-book" onclick="localStorage.removeItem('plDraftBooking')">+ New Booking</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../js/mockApi.js"></script>
+  <script src="../js/Navbar.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+  <script>
+    let currentUser = null;
+    let selectedType = 'commercial';
+    let allTankers = [];
+    let selectedTankerId = null;
+
+    // Auth guard
+    mockApi.auth.getCurrentUser().then(res => {
+      if (!res.success) { location.href = 'Login.html'; return; }
+      currentUser = res.data;
+      init();
+    });
+
+    async function init() {
+      // Set min date to tomorrow
+      const tomorrow = new Date(); tomorrow.setDate(tomorrow.getDate() + 1);
+      document.getElementById('scheduledDate').min = tomorrow.toISOString().split('T')[0];
+
+      // Pre-fill address
+      if (currentUser.address) document.getElementById('deliveryAddress').value = currentUser.address;
+
+      // Load zones
+      const zRes = await mockApi.zones.getZones();
+      const zSel = document.getElementById('zoneSelect');
+      if (zRes.success) {
+        zRes.data.forEach(z => {
+          const opt = document.createElement('option'); opt.value = z.id; opt.textContent = z.name; zSel.appendChild(opt);
+        });
+        // Auto-select user's zone
+        if (currentUser.zone) { zSel.value = currentUser.zone; await loadHydrants(); }
+      }
+
+      // Check subsidy eligibility
+      if (currentUser.subsidyStatus !== 'approved') {
+        document.getElementById('btnSubsidised').disabled = true;
+        document.getElementById('btnSubsidised').style.opacity = '0.5';
+        document.getElementById('btnSubsidised').title = 'Requires approved subsidy status';
+      }
+    }
+
+    function selectType(type) {
+      selectedType = type;
+      document.getElementById('btnCommercial').className = 'type-btn' + (type === 'commercial' ? ' active' : '');
+      document.getElementById('btnSubsidised').className = 'type-btn subsidised' + (type === 'subsidised' ? ' active' : '');
+      document.getElementById('subsidyNote').style.display = type === 'subsidised' && currentUser.subsidyStatus === 'approved' ? 'block' : 'none';
+      document.getElementById('subsidyWarn').style.display = type === 'subsidised' && currentUser.subsidyStatus !== 'approved' ? 'block' : 'none';
+      renderTankerPrices(); // update prices
+    }
+
+    async function loadHydrants() {
+      const zoneId = document.getElementById('zoneSelect').value;
+      const hSel = document.getElementById('hydrantSelect');
+      hSel.innerHTML = '<option value="">-- Select Hydrant --</option>';
+      if (!zoneId) return;
+      const hRes = await mockApi.hydrants.getHydrants(zoneId);
+      if (hRes.success) {
+        hRes.data.forEach(h => {
+          const pct = Math.round((1 - h.remainingQuota / h.dailyQuotaGallons) * 100);
+          const opt = document.createElement('option'); opt.value = h.id;
+          opt.textContent = `${h.name} (${h.operatingHoursStart}–${h.operatingHoursEnd}, Quota: ${pct}% used)`;
+          hSel.appendChild(opt);
+        });
+      }
+    }
+
+    async function loadTankersForHydrant() {
+      const hydrantId = document.getElementById('hydrantSelect').value;
+      if (!hydrantId) return;
+      const tRes = await mockApi.tankers.getTankers(hydrantId);
+      if (tRes.success) { allTankers = tRes.data; renderTankerPrices(); }
+    }
+
+    function renderTankerPrices() {
+      const grid = document.getElementById('tankerGrid');
+      grid.innerHTML = '';
+      if (!allTankers.length) { grid.innerHTML = '<p style="color:#888;font-size:1.4rem">Select a hydrant first.</p>'; return; }
+      allTankers.forEach(t => {
+        const rate = selectedType === 'subsidised' ? 0.1 : 0.9;
+        const price = Math.round(t.capacityGallons * rate);
+        const div = document.createElement('div');
+        div.className = 'tanker-opt' + (!t.available ? ' unavailable' : '') + (selectedTankerId === t.id ? ' selected' : '');
+        div.innerHTML = `
+          <div class="tanker-icon">🚛</div>
+          <h4>${t.capacityGallons.toLocaleString()} gal</h4>
+          <div class="cap">Reg: ${t.registrationNo}</div>
+          <div class="price-tag">Rs ${price.toLocaleString()}</div>
+          <span class="avail-badge ${t.available ? 'yes' : 'no'}">${t.available ? 'Available' : 'Unavailable'}</span>`;
+        if (t.available) div.onclick = () => selectTanker(t.id);
+        grid.appendChild(div);
+      });
+    }
+
+    function selectTanker(id) {
+      selectedTankerId = id;
+      document.querySelectorAll('.tanker-opt').forEach((el, i) => {
+        el.classList.toggle('selected', allTankers[i] && allTankers[i].id === id);
+      });
+    }
+
+    function showErr(id, msg) { const el = document.getElementById(id); el.textContent = msg; el.style.display = 'block'; setTimeout(() => el.style.display='none', 4000); }
+
+    async function goStep2() {
+      const zone    = document.getElementById('zoneSelect').value;
+      const hydrant = document.getElementById('hydrantSelect').value;
+      const address = document.getElementById('deliveryAddress').value.trim();
+      const date    = document.getElementById('scheduledDate').value;
+      if (!zone)    return showErr('err1', 'Please select a zone.');
+      if (!hydrant) return showErr('err1', 'Please select a hydrant.');
+      if (!address) return showErr('err1', 'Please enter delivery address.');
+      if (!date)    return showErr('err1', 'Please select a delivery date.');
+      if (selectedType === 'subsidised' && currentUser.subsidyStatus !== 'approved') return showErr('err1', 'You need approved subsidy to book subsidised tanker.');
+      await loadTankersForHydrant();
+      goTo(2);
+    }
+
+    function goStep3() {
+      if (!selectedTankerId) return showErr('err2', 'Please select a tanker.');
+      buildSummary();
+      goTo(3);
+    }
+
+    function buildSummary() {
+      const tanker  = allTankers.find(t => t.id === selectedTankerId);
+      const price   = Math.round(tanker.capacityGallons * (selectedType === 'subsidised' ? 0.1 : 0.9));
+      const hydrant = document.getElementById('hydrantSelect');
+      const zoneEl  = document.getElementById('zoneSelect');
+      const html = `
+        <div class="summary-row"><span>Booking Type</span><span style="text-transform:capitalize">${selectedType}</span></div>
+        <div class="summary-row"><span>Zone</span><span>${zoneEl.options[zoneEl.selectedIndex].text}</span></div>
+        <div class="summary-row"><span>Hydrant</span><span>${hydrant.options[hydrant.selectedIndex].text.split('(')[0].trim()}</span></div>
+        <div class="summary-row"><span>Tanker</span><span>${tanker.capacityGallons.toLocaleString()} gal (${tanker.registrationNo})</span></div>
+        <div class="summary-row"><span>Delivery Address</span><span>${document.getElementById('deliveryAddress').value}</span></div>
+        <div class="summary-row"><span>Scheduled Date</span><span>${new Date(document.getElementById('scheduledDate').value).toLocaleDateString('en-PK',{year:'numeric',month:'long',day:'numeric'})}</span></div>
+        <div class="summary-row"><span>Total Amount</span><span>Rs ${price.toLocaleString()}</span></div>`;
+      document.getElementById('summaryBox').innerHTML = html;
+    }
+
+    async function submitBooking() {
+      const btn = document.getElementById('confirmBtn');
+      btn.disabled = true; btn.textContent = 'Submitting…';
+
+      const res = await mockApi.bookings.createBooking({
+        customerId:      currentUser.id,
+        hydrantId:       document.getElementById('hydrantSelect').value,
+        zoneId:          document.getElementById('zoneSelect').value,
+        type:            selectedType,
+        tankerId:        selectedTankerId,
+        scheduledDate:   document.getElementById('scheduledDate').value,
+        deliveryAddress: document.getElementById('deliveryAddress').value.trim(),
+        notes:           document.getElementById('notes').value.trim(),
+      });
+
+      if (res.success) {
+        document.getElementById('successBookingId').textContent = `Booking ID: ${res.data.id}`;
+        const statusMsg = res.data.status === 'pending_approval' ? 'Your subsidised booking is pending Zone Officer approval.' : 'Your commercial booking is approved and will be assigned soon.';
+        document.getElementById('successMsg').textContent = statusMsg;
+        goTo('success');
+      } else {
+        showErr('err3', res.error);
+        btn.disabled = false; btn.textContent = 'Confirm Booking';
+      }
+    }
+
+    function goTo(step) {
+      document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+      if (step === 'success') {
+        document.getElementById('stepSuccess').classList.add('active');
+      } else {
+        document.getElementById('step' + step).classList.add('active');
+        ['pill1','pill2','pill3'].forEach((id, i) => {
+          const pill = document.getElementById(id);
+          if (i + 1 < step)      pill.className = 'step-pill done';
+          else if (i + 1 === step) pill.className = 'step-pill active';
+          else                   pill.className = 'step-pill';
+        });
+      }
+      window.scrollTo(0, 0);
+    }
+
+    document.getElementById('logoutLink').addEventListener('click', async (e) => {
+      e.preventDefault(); await mockApi.auth.logout(); location.href = 'Login.html';
+    });
+  </script>
+</body>
+</html>
